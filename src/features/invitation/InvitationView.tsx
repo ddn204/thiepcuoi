@@ -5,6 +5,8 @@ import { AlbumCarousel } from './sections/AlbumCarousel'
 import { CeremonyInfo } from './sections/CeremonyInfo'
 import { CoverScreen } from './sections/CoverScreen'
 import { HeroHeader } from './sections/HeroHeader'
+import { PartyInfo } from './sections/PartyInfo'
+import { VenueMap } from './sections/VenueMap'
 
 export type InvitationMode = 'live' | 'preview'
 
@@ -57,6 +59,8 @@ export function InvitationView({ data, guestName, mode = 'live', showCover = tru
         <HeroHeader data={data} />
         <CeremonyInfo data={data} />
         <AlbumCarousel data={data} />
+        <PartyInfo data={data} />
+        <VenueMap data={data} />
         <div className="h-24" />
       </main>
 

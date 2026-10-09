@@ -5,10 +5,12 @@ interface EventDateBlockProps {
   date: string
   time: string
   lunarOverride?: string
+  /** Ẩn "Vào lúc …" khi giờ đã hiển thị riêng phía trên */
+  showTime?: boolean
 }
 
 /** Khối "VÀO LÚC 09:00 | THỨ BẢY — 03 | THÁNG 01 / 2026 — (TỨC NGÀY …)" */
-export function EventDateBlock({ date, time, lunarOverride }: EventDateBlockProps) {
+export function EventDateBlock({ date, time, lunarOverride, showTime = true }: EventDateBlockProps) {
   const parts = parseIsoDate(date)
   if (!parts) return null
   const lunar = lunarOverride?.trim() || formatLunarDate(date)
@@ -16,7 +18,7 @@ export function EventDateBlock({ date, time, lunarOverride }: EventDateBlockProp
   return (
     <div className="text-center uppercase">
       <div className="flex items-center justify-center gap-8 font-serif text-lg">
-        <span>Vào lúc {time}</span>
+        {showTime && <span>Vào lúc {time}</span>}
         <span>{weekdayName(date)}</span>
       </div>
       <div className="mt-3 flex items-center justify-center gap-5">
