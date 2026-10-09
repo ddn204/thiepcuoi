@@ -22,6 +22,8 @@ interface InvitationViewProps {
   guestName?: string
   /** id thiệp trong DB; không có thì lưu bút / RSVP chạy ở chế độ xem thử */
   invitationId?: string
+  /** id khách mời (link cá nhân hoá) để gắn vào RSVP */
+  guestId?: string
   mode?: InvitationMode
   showCover?: boolean
 }
