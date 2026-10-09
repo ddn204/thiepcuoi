@@ -4,8 +4,11 @@ import type { InvitationData } from '@/types/invitation'
 import { AlbumCarousel } from './sections/AlbumCarousel'
 import { CeremonyInfo } from './sections/CeremonyInfo'
 import { CoverScreen } from './sections/CoverScreen'
+import { DressCode } from './sections/DressCode'
+import { Footer } from './sections/Footer'
 import { HeroHeader } from './sections/HeroHeader'
 import { PartyInfo } from './sections/PartyInfo'
+import { Schedule } from './sections/Schedule'
 import { VenueMap } from './sections/VenueMap'
 
 export type InvitationMode = 'live' | 'preview'
@@ -61,7 +64,9 @@ export function InvitationView({ data, guestName, mode = 'live', showCover = tru
         <AlbumCarousel data={data} />
         <PartyInfo data={data} />
         <VenueMap data={data} />
-        <div className="h-24" />
+        <DressCode data={data} />
+        <Schedule data={data} />
+        <Footer data={data} />
       </main>
 
       <AnimatePresence>
