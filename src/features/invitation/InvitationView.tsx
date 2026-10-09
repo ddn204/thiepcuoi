@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence } from 'motion/react'
 import type { InvitationData } from '@/types/invitation'
+import { CeremonyInfo } from './sections/CeremonyInfo'
 import { CoverScreen } from './sections/CoverScreen'
+import { HeroHeader } from './sections/HeroHeader'
 
 export type InvitationMode = 'live' | 'preview'
 
@@ -42,18 +44,18 @@ export function InvitationView({ data, guestName, mode = 'live', showCover = tru
   }, [mode, opened])
 
   return (
-    <div style={themeVars(data.theme)} className="paper-bg min-h-full w-full font-body text-wine">
+    <div style={themeVars(data.theme)} className="paper-bg min-h-full w-full font-body text-wine [font-variant-numeric:lining-nums]">
       <main className="relative isolate mx-auto w-full max-w-[480px] overflow-hidden">
         {data.assets.backgroundArt && (
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 bg-repeat-y opacity-[0.07]"
+            className="pointer-events-none absolute inset-0 -z-10 bg-repeat-y opacity-[0.06]"
             style={{ backgroundImage: `url(${data.assets.backgroundArt})`, backgroundSize: '100% auto' }}
           />
         )}
-        <div className="flex min-h-[60vh] items-center justify-center font-display text-3xl">
-          {data.groom.shortName} &amp; {data.bride.shortName}
-        </div>
+        <HeroHeader data={data} />
+        <CeremonyInfo data={data} />
+        <div className="h-24" />
       </main>
 
       <AnimatePresence>
