@@ -1,3 +1,11 @@
+import { createBrowserRouter, RouterProvider } from 'react-router'
+import DemoPage from '@/pages/DemoPage'
+
+const router = createBrowserRouter([
+  { path: '/', element: <DemoPage /> },
+  { path: '/demo', element: <DemoPage /> },
+])
+
 export default function App() {
-  return <div className="p-8 text-2xl">Thiệp cưới</div>
+  return <RouterProvider router={router} />
 }
