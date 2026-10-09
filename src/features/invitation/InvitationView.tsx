@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence } from 'motion/react'
 import type { InvitationData } from '@/types/invitation'
+import { MusicPlayer } from './overlays/MusicPlayer'
+import { useAutoScroll } from './overlays/useAutoScroll'
+import { useScrollContainer } from './scroll-container'
 import { AlbumCarousel } from './sections/AlbumCarousel'
 import { CeremonyInfo } from './sections/CeremonyInfo'
 import { CoverScreen } from './sections/CoverScreen'
@@ -35,8 +38,39 @@ function themeVars(theme: InvitationData['theme']): React.CSSProperties {
 
 export function InvitationView({ data, guestName, mode = 'live', showCover = true }: InvitationViewProps) {
   const [opened, setOpened] = useState(!showCover)
+  const [playing, setPlaying] = useState(false)
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const scroller = useScrollContainer()
+  const hasMusic = data.music.enabled && Boolean(data.music.url)
 
   useEffect(() => setOpened(!showCover), [showCover])
+
+  useAutoScroll(mode === 'live' && opened && showCover && data.autoScroll, scroller)
+
+  const playMusic = () => {
+    const audio = audioRef.current
+    if (!audio) return
+    audio
+      .play()
+      .then(() => setPlaying(true))
+      .catch(() => setPlaying(false))
+  }
+
+  const toggleMusic = () => {
+    const audio = audioRef.current
+    if (!audio) return
+    if (audio.paused) playMusic()
+    else {
+      audio.pause()
+      setPlaying(false)
+    }
+  }
+
+  const handleOpen = () => {
+    setOpened(true)
+    // Bấm "Mở thiệp" là thao tác của người dùng nên trình duyệt cho phép tự phát nhạc
+    if (hasMusic && mode === 'live') playMusic()
+  }
 
   // Khoá cuộn trang khi đang ở màn bìa (chỉ trang public)
   useEffect(() => {
@@ -69,8 +103,15 @@ export function InvitationView({ data, guestName, mode = 'live', showCover = tru
         <Footer data={data} />
       </main>
 
+      {hasMusic && (
+        <>
+          <audio ref={audioRef} src={data.music.url} loop preload="none" />
+          {opened && <MusicPlayer playing={playing} onToggle={toggleMusic} />}
+        </>
+      )}
+
       <AnimatePresence>
-        {!opened && <CoverScreen data={data} guestName={guestName} onOpen={() => setOpened(true)} />}
+        {!opened && <CoverScreen data={data} guestName={guestName} onOpen={handleOpen} />}
       </AnimatePresence>
     </div>
   )
