@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { normalizeInvitationData } from '@/data/default-invitation'
 import { getSupabase } from '@/lib/supabase'
 import type { Invitation } from '@/types/invitation'
@@ -29,6 +29,23 @@ export function useGuest(slug: string, code: string | null) {
       const { data, error } = await getSupabase().rpc('get_guest', { p_slug: slug, p_code: code! })
       if (error) throw error
       return data?.[0] ?? null
+    },
+  })
+}
+
+export function useSubmitRsvp(invitationId: string | undefined, guestId: string | undefined) {
+  return useMutation({
+    mutationFn: async (input: { name: string; attending: boolean; guestCount: number }) => {
+      const { error } = await getSupabase()
+        .from('rsvps')
+        .insert({
+          invitation_id: invitationId!,
+          guest_id: guestId ?? null,
+          name: input.name.trim(),
+          attending: input.attending,
+          guest_count: input.attending ? input.guestCount : 0,
+        })
+      if (error) throw error
     },
   })
 }

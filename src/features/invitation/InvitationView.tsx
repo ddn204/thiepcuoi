@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence } from 'motion/react'
 import type { InvitationData } from '@/types/invitation'
+import { InvitationRuntimeContext } from './invitation-context'
 import { MusicPlayer } from './overlays/MusicPlayer'
+import { RsvpDialog } from './overlays/RsvpDialog'
 import { useAutoScroll } from './overlays/useAutoScroll'
 import { useScrollContainer } from './scroll-container'
 import { AlbumCarousel } from './sections/AlbumCarousel'
@@ -38,14 +40,33 @@ function themeVars(theme: InvitationData['theme']): React.CSSProperties {
   } as React.CSSProperties
 }
 
-export function InvitationView({ data, guestName, mode = 'live', showCover = true }: InvitationViewProps) {
+export function InvitationView({
+  data,
+  guestName,
+  invitationId,
+  guestId,
+  mode = 'live',
+  showCover = true,
+}: InvitationViewProps) {
   const [opened, setOpened] = useState(!showCover)
   const [playing, setPlaying] = useState(false)
+  const [rsvpOpen, setRsvpOpen] = useState(false)
   const audioRef = useRef<HTMLAudioElement>(null)
   const scroller = useScrollContainer()
   const hasMusic = data.music.enabled && Boolean(data.music.url)
 
   useEffect(() => setOpened(!showCover), [showCover])
+
+  // Dialog / bottom sheet render qua portal ra ngoài thiệp → đặt màu thiệp lên <html> ở trang public
+  useEffect(() => {
+    if (mode !== 'live') return
+    const root = document.documentElement
+    const vars = Object.entries(themeVars(data.theme)) as [string, string][]
+    vars.forEach(([name, value]) => root.style.setProperty(name, value))
+    return () => vars.forEach(([name]) => root.style.removeProperty(name))
+  }, [mode, data.theme])
+
+  const runtime = useMemo(() => ({ invitationId, guestId, guestName, mode }), [invitationId, guestId, guestName, mode])
 
   useAutoScroll(mode === 'live' && opened && showCover && data.autoScroll, scroller)
 
@@ -86,35 +107,42 @@ export function InvitationView({ data, guestName, mode = 'live', showCover = tru
   }, [mode, opened])
 
   return (
-    <div style={themeVars(data.theme)} className="paper-bg min-h-full w-full font-body text-wine [font-variant-numeric:lining-nums]">
-      <main className="relative isolate mx-auto w-full max-w-[480px] overflow-hidden">
-        {data.assets.backgroundArt && (
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 bg-repeat-y opacity-[0.06]"
-            style={{ backgroundImage: `url(${data.assets.backgroundArt})`, backgroundSize: '100% auto' }}
-          />
+    <InvitationRuntimeContext.Provider value={runtime}>
+      <div
+        style={themeVars(data.theme)}
+        className="paper-bg min-h-full w-full font-body text-wine [font-variant-numeric:lining-nums]"
+      >
+        <main className="relative isolate mx-auto w-full max-w-[480px] overflow-hidden">
+          {data.assets.backgroundArt && (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 -z-10 bg-repeat-y opacity-[0.06]"
+              style={{ backgroundImage: `url(${data.assets.backgroundArt})`, backgroundSize: '100% auto' }}
+            />
+          )}
+          <HeroHeader data={data} />
+          <CeremonyInfo data={data} />
+          <AlbumCarousel data={data} />
+          <PartyInfo data={data} onRsvp={() => setRsvpOpen(true)} />
+          <VenueMap data={data} />
+          <DressCode data={data} />
+          <Schedule data={data} />
+          <Footer data={data} />
+        </main>
+
+        {hasMusic && (
+          <>
+            <audio ref={audioRef} src={data.music.url} loop preload="none" />
+            {opened && <MusicPlayer playing={playing} onToggle={toggleMusic} />}
+          </>
         )}
-        <HeroHeader data={data} />
-        <CeremonyInfo data={data} />
-        <AlbumCarousel data={data} />
-        <PartyInfo data={data} />
-        <VenueMap data={data} />
-        <DressCode data={data} />
-        <Schedule data={data} />
-        <Footer data={data} />
-      </main>
 
-      {hasMusic && (
-        <>
-          <audio ref={audioRef} src={data.music.url} loop preload="none" />
-          {opened && <MusicPlayer playing={playing} onToggle={toggleMusic} />}
-        </>
-      )}
+        {data.rsvp.enabled && <RsvpDialog key={guestName} open={rsvpOpen} onOpenChange={setRsvpOpen} />}
 
-      <AnimatePresence>
-        {!opened && <CoverScreen data={data} guestName={guestName} onOpen={handleOpen} />}
-      </AnimatePresence>
-    </div>
+        <AnimatePresence>
+          {!opened && <CoverScreen data={data} guestName={guestName} onOpen={handleOpen} />}
+        </AnimatePresence>
+      </div>
+    </InvitationRuntimeContext.Provider>
   )
 }
