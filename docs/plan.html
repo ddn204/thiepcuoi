@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Plan thiệp cưới online</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+  :root{--fg:#2a1a1b;--muted:#6b5a5b;--accent:#511419;--bg:#fbf7f2;--line:#e6dcd0;--code:#f3ece3}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  main,body>*{max-width:860px;margin-left:auto;margin-right:auto}
+  body{padding:32px 16px 64px}
+  h1,h2,h3{color:var(--accent);line-height:1.25}
+  h1{font-size:28px;border-bottom:2px solid var(--accent);padding-bottom:8px}
+  h2{font-size:22px;margin-top:40px;border-bottom:1px solid var(--line);padding-bottom:4px}
+  code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.9em}
+  pre{background:var(--code);padding:14px;border-radius:8px;overflow:auto}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;width:100%;margin:12px 0}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#f1e7dc}
+  blockquote{margin:12px 0;padding:8px 14px;border-left:4px solid var(--accent);background:#f6eee6;color:var(--muted)}
+  a{color:var(--accent)}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Plan thiệp cưới online</h1>
+</header>
+<h1
+id="plan-thiệp-cưới-online-clone-bố-cục-minimalism-đỏ-đậm--trang-admin-chỉnh-sửa">Plan:
+Thiệp cưới online (clone bố cục "Minimalism Đỏ Đậm") + trang admin chỉnh
+sửa</h1>
+<h2 id="context">Context</h2>
+<p>Bạn muốn dựng lại bố cục và trải nghiệm của thiệp mẫu <a
+href="https://chungdoi.com/vi/mau-thiep/minimalism-do-dam/demo">https://chungdoi.com/vi/mau-thiep/minimalism-do-dam/demo</a>
+bằng <strong>Vite + React + Tailwind (+ shadcn/ui, React Bits)</strong>,
+và có <strong>trang admin</strong> để đổi ảnh/chữ, tạo thiệp cho nhiều
+cặp đôi khác nhau (mỗi thiệp một link riêng).</p>
+<p>Các lựa chọn đã chốt:</p>
+<ul>
+<li>Lưu dữ liệu: <strong>Supabase</strong> (Postgres + Storage + Auth),
+frontend deploy tĩnh lên Vercel.</li>
+<li>Người chỉnh sửa: <strong>chỉ admin</strong>. Admin đăng nhập
+<code>/admin</code>, tạo/sửa thiệp rồi gửi link.</li>
+<li>Editor: <strong>form bên trái + preview live bên phải</strong>.</li>
+<li>Tính năng giữ lại: Lưu bút + RSVP, QR quà mừng, nhạc nền + map +
+thêm vào lịch, link riêng có tên từng khách.</li>
+</ul>
+<p>Thư mục <code>thiepcuoi/</code> hiện trống (chỉ có
+<code>requiremennt.md</code>) và chưa <code>git init</code>.</p>
+<p><strong>Tài nguyên:</strong> chỉ dựng lại bố cục, màu sắc, hiệu ứng
+bằng code của mình. <strong>Không tải về hay dùng lại</strong> ảnh cưới,
+hoa trang trí, nền lâu đài, giấy, phong bì hay file nhạc của chungdoi.
+Hình trang trí mặc định lấy từ nguồn CC0/free-license (hoặc SVG tự vẽ).
+Ảnh cưới và nhạc do admin upload. Nội dung mẫu mặc định tự viết với tên
+giả khác.</p>
+<h2
+id="phân-tích-thiệp-mẫu-xem-bằng-chrome-devtools-viewport-500px">Phân
+tích thiệp mẫu (xem bằng Chrome DevTools, viewport 500px)</h2>
+<p>Thứ tự section:</p>
+<ol type="1">
+<li><strong>Màn bìa</strong>: nền đỏ đô gradient, tim rơi lơ lửng. Ở
+giữa có card kem gồm icon tim tròn, tên "A &amp; B", ngày, "Thân Mời",
+nút <strong>Mở thiệp</strong>. Bấm nút thì mở thiệp và bật nhạc.</li>
+<li><strong>Header "Save The Date"</strong>: tên cô dâu chú rể, ảnh cưới
+lồng trong phong bì, hoa trang trí bay nhẹ (<code>translateY</code>
+±8px). Nền là giấy kem có hình lâu đài mờ.</li>
+<li><strong>Thông tin lễ cưới</strong> (card đỏ đô, chữ kem):
+<ul>
+<li>Bố mẹ hai họ chia hai cột, kèm địa chỉ.</li>
+<li>"Trân trọng báo tin lễ thành hôn của con chúng tôi".</li>
+<li>Tên đầy đủ kèm vai vế (Trưởng nam / Út nữ).</li>
+<li>"Lễ thành hôn được cử hành tại Tư gia", giờ, thứ, ngày tháng năm,
+(Tức ngày … âm lịch).</li>
+</ul></li>
+<li><strong>Album ảnh</strong>: carousel 3D coverflow, dots, mở lightbox
+khi bấm.</li>
+<li><strong>Thông tin tiệc cưới</strong> (card đỏ đô):
+<ul>
+<li>Giờ, ngày, âm lịch, Đón khách / Khai tiệc.</li>
+<li>Lịch tháng có ô ngày cưới hình trái tim.</li>
+<li>Link <strong>Thêm vào lịch</strong> (Google Calendar).</li>
+<li>Nút <strong>Xác nhận tham dự</strong> mở modal RSVP: tên + "Tôi sẽ
+đến / Rất tiếc, tôi không thể đến".</li>
+</ul></li>
+<li><strong>Địa điểm tiệc</strong>: địa chỉ, Google Map embed, nút
+<strong>Chỉ đường</strong>.</li>
+<li><strong>Dress code</strong>: 4 chấm màu.</li>
+<li><strong>Lịch trình ngày cưới</strong>: timeline giờ + hoạt
+động.</li>
+<li><strong>Sổ lưu bút</strong>:
+<ul>
+<li>Form gồm tên, lời chúc, nút 🪄 gợi ý lời chúc và nút <strong>Gửi lời
+chúc</strong>.</li>
+<li>Danh sách lời chúc cuộn (khung cao tối đa 500px).</li>
+</ul></li>
+<li><strong>Hộp quà mừng</strong>: hộp quà lấp lánh "Nhấn để mở" mở
+bottom sheet. Bottom sheet có QR chuyển khoản của chú rể và cô dâu (ngân
+hàng, STK, tên) và nút <strong>Lưu QR</strong>.</li>
+<li><strong>Footer</strong> lời cảm ơn.</li>
+<li>Nổi trên trang: nút nhạc (đĩa xoay, play/pause), tự động cuộn chậm
+sau khi mở thiệp.</li>
+</ol>
+<p>Bảng màu: đỏ đô <code>#511419</code> / <code>#590310</code>, kem
+<code>#ECE4D8</code> / <code>#F7EFE6</code>, vàng
+<code>#C9A24A</code>.</p>
+<p>Font (đều có trên Google Fonts, hỗ trợ tiếng Việt):</p>
+<ul>
+<li>Viaoda Libre cho tên.</li>
+<li>Cormorant Garamond / Libre Baskerville / Lora cho nội dung.</li>
+<li>Ms Madi cho chữ viết tay ("Tháng 1 / 2026").</li>
+</ul>
+<h2 id="tech-stack">Tech stack</h2>
+<table>
+<thead>
+<tr>
+<th>Mục đích</th>
+<th>Thư viện</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Build</td>
+<td>Vite + React 19 + TypeScript</td>
+</tr>
+<tr>
+<td>Style</td>
+<td>Tailwind CSS v4 (<code>@tailwindcss/vite</code>), theme token CSS
+variables</td>
+</tr>
+<tr>
+<td>UI admin + dialog/sheet</td>
+<td>shadcn/ui: Button, Input, Textarea, Label, Dialog, Drawer (vaul),
+Accordion, Tabs, Switch, Select, RadioGroup, Card, Table, ScrollArea,
+Sonner</td>
+</tr>
+<tr>
+<td>Hiệu ứng chữ / reveal</td>
+<td>React Bits (cài qua shadcn registry
+<code>https://reactbits.dev/r/&lt;Name&gt;-TS-TW</code>):
+SplitText/BlurText cho tên, AnimatedContent/FadeContent cho reveal khi
+cuộn</td>
+</tr>
+<tr>
+<td>Animation tuỳ biến</td>
+<td><code>motion</code> (mở bìa, tim rơi, hộp quà, hoa bay)</td>
+</tr>
+<tr>
+<td>Album</td>
+<td><code>swiper</code> (EffectCoverflow + Pagination) +
+<code>yet-another-react-lightbox</code></td>
+</tr>
+<tr>
+<td>Router</td>
+<td><code>react-router</code> v7</td>
+</tr>
+<tr>
+<td>Data</td>
+<td><code>@supabase/supabase-js</code> +
+<code>@tanstack/react-query</code></td>
+</tr>
+<tr>
+<td>Form editor</td>
+<td><code>react-hook-form</code> + <code>zod</code> +
+<code>@hookform/resolvers</code></td>
+</tr>
+<tr>
+<td>Ảnh</td>
+<td><code>browser-image-compression</code> (nén sang webp, tối đa 1600px
+trước khi upload)</td>
+</tr>
+<tr>
+<td>Test</td>
+<td><code>vitest</code> (util âm lịch, VietQR, link lịch)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="kiến-trúc-dữ-liệu">Kiến trúc dữ liệu</h2>
+<p>Mỗi thiệp là <strong>một bản ghi</strong> gồm cột
+<code>data jsonb</code> chứa toàn bộ nội dung. Schema zod nằm ở
+<code>src/types/invitation.ts</code> và dùng chung cho cả trang public
+lẫn editor. Thêm section hay trường mới thì không cần migrate DB.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ts"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>InvitationData <span class="op">=</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  theme<span class="op">:</span>    { primary<span class="op">,</span> primaryDark<span class="op">,</span> cream<span class="op">,</span> paper<span class="op">,</span> gold }        <span class="co">// đổi màu được</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  assets<span class="op">:</span>   { paperTexture<span class="op">,</span> backgroundArt<span class="op">,</span> flowerDecor<span class="op">,</span> envelope<span class="op">?</span> } <span class="co">// ảnh trang trí, đổi được</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  cover<span class="op">:</span>    { greeting<span class="op">:</span> <span class="st">&#39;Thân mời&#39;</span><span class="op">,</span> buttonText<span class="op">:</span> <span class="st">&#39;Mở thiệp&#39;</span> }</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  hero<span class="op">:</span>     { label<span class="op">:</span> <span class="st">&#39;Save The Date&#39;</span><span class="op">,</span> photo }</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  groom<span class="op">/</span>bride<span class="op">:</span> { fullName<span class="op">,</span> shortName<span class="op">,</span> role<span class="op">,</span> father<span class="op">,</span> mother<span class="op">,</span> address }</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  ceremony<span class="op">:</span> { heading<span class="op">,</span> venue<span class="op">,</span> datetime<span class="op">,</span> lunarOverride<span class="op">?</span> }</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  album<span class="op">:</span>    { title<span class="op">,</span> photos<span class="op">:</span> [{ url<span class="op">,</span> alt }] }</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  party<span class="op">:</span>    { datetime<span class="op">,</span> welcomeTime<span class="op">,</span> startTime<span class="op">,</span> venueName<span class="op">,</span> address<span class="op">,</span> mapQuery<span class="op">,</span> lunarOverride<span class="op">?</span> }</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  dressCode<span class="op">:</span>{ enabled<span class="op">,</span> subtitle<span class="op">,</span> colors<span class="op">:</span> <span class="dt">string</span>[] }</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  schedule<span class="op">:</span> { enabled<span class="op">,</span> items<span class="op">:</span> [{ time<span class="op">,</span> label }] }</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  guestbook<span class="op">:</span>{ enabled }   rsvp<span class="op">:</span> { enabled }</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  gift<span class="op">:</span>     { enabled<span class="op">,</span> accounts<span class="op">:</span> [{ label<span class="op">,</span> bankBin<span class="op">,</span> bankName<span class="op">,</span> accountNumber<span class="op">,</span> accountName<span class="op">,</span> qrImage<span class="op">?</span> }] }</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  music<span class="op">:</span>    { enabled<span class="op">,</span> url<span class="op">,</span> autoplayOnOpen }</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  autoScroll<span class="op">:</span> <span class="dt">boolean</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  footer<span class="op">:</span>   { message }</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  seo<span class="op">:</span>      { title<span class="op">,</span> description<span class="op">,</span> ogImage }</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="supabase-supabasemigrations0001_initsql">Supabase
+(<code>supabase/migrations/0001_init.sql</code>)</h3>
+<p>Bảng:</p>
+<ul>
+<li><code>invitations</code>: <code>id</code>, <code>slug</code>
+(unique), <code>title</code>, <code>data jsonb</code>,
+<code>published bool</code>, <code>owner_id</code>,
+<code>created_at</code>, <code>updated_at</code>.</li>
+<li><code>wishes</code>: <code>id</code>, <code>invitation_id</code>,
+<code>name</code>, <code>message</code>, <code>hidden bool</code>,
+<code>created_at</code>. Có check độ dài: tên ≤ 60, lời chúc ≤ 500.</li>
+<li><code>rsvps</code>: <code>id</code>, <code>invitation_id</code>,
+<code>guest_id?</code>, <code>name</code>, <code>attending bool</code>,
+<code>guest_count int</code>, <code>created_at</code>.</li>
+<li><code>guests</code>: <code>id</code>, <code>invitation_id</code>,
+<code>display_name</code> (vd "Anh Minh &amp; người thương"),
+<code>code</code> (short, unique), <code>created_at</code>.</li>
+</ul>
+<p>Storage bucket <code>invitation-media</code>: đọc public, chỉ user đã
+đăng nhập được ghi. Đường dẫn file:
+<code>{invitation_id}/{uuid}.webp</code>.</p>
+<p>RLS:</p>
+<ul>
+<li><code>invitations</code>: anon chỉ <code>select</code> được thiệp có
+<code>published = true</code>. Authenticated được toàn quyền.</li>
+<li><code>wishes</code>: anon được <code>insert</code>, và
+<code>select</code> được lời chúc <code>hidden = false</code> của thiệp
+đã publish. Authenticated toàn quyền.</li>
+<li><code>rsvps</code>: anon chỉ được <code>insert</code>. Chỉ
+authenticated mới đọc được.</li>
+<li><code>guests</code>: anon không đọc trực tiếp. Dùng RPC
+<code>get_guest(slug, code)</code> (<code>security definer</code>) trả
+về đúng <code>display_name</code>, tránh lộ danh sách khách.</li>
+<li>Tắt sign-up trong Supabase Auth. Admin được tạo tay trong
+dashboard.</li>
+</ul>
+<blockquote>
+<p>Trước khi chạy <code>supabase db reset</code> hoặc bất kỳ lệnh xoá dữ
+liệu nào, mình sẽ hỏi lại bạn (theo CLAUDE.md).</p>
+</blockquote>
+<h2 id="cấu-trúc-thư-mục">Cấu trúc thư mục</h2>
+<pre><code>src/
+  main.tsx, App.tsx                  # routes: /:slug, /admin/login, /admin, /admin/thiep/:id
+  lib/ supabase.ts, utils.ts(cn), lunar.ts, vietqr.ts, calendar-link.ts, upload-image.ts
+  types/invitation.ts                # zod schema + types
+  data/ default-invitation.ts, wish-suggestions.ts
+  components/ui/*                    # shadcn
+  components/reactbits/*             # React Bits
+  features/invitation/
+    InvitationView.tsx               # nhận (data, guestName, mode: &#39;live&#39;|&#39;preview&#39;), ghép các section
+    sections/ CoverScreen, HeroHeader, CeremonyInfo, AlbumCarousel, PartyInfo, MonthCalendar,
+              VenueMap, DressCode, Schedule, Guestbook, GiftBox, Footer
+    overlays/ RsvpDialog, GiftDrawer, MusicPlayer, FallingHearts, useAutoScroll
+  features/admin/
+    LoginPage, DashboardPage, EditorPage, RequireAuth
+    editor/ fields/*Fields.tsx (mỗi section 1 file), ImageUploadField, ColorListField, PhonePreview
+    tabs/ WishesTab, RsvpTab (export CSV), GuestsTab (tạo khách + copy link)
+  pages/PublicInvitationPage.tsx     # fetch theo slug, đọc ?g=code hoặc ?khach=Tên
+supabase/migrations/0001_init.sql
+docs/plan.md, docs/plan.html
+.env.example (VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY), vercel.json (SPA rewrite)</code></pre>
+<p>Các util chính:</p>
+<ul>
+<li><code>lunar.ts</code>: thuật toán âm lịch Hồ Ngọc Đức (múi giờ +7)
+trả về "ngày 15 tháng 11 năm Ất Tỵ". Có thể ghi đè thủ công trong
+editor.</li>
+<li><code>vietqr.ts</code>: tạo URL
+<code>https://img.vietqr.io/image/{bin}-{stk}-compact2.png?accountName=…</code>.
+Danh sách ngân hàng lấy từ <code>https://api.vietqr.io/v2/banks</code>,
+có fallback upload ảnh QR riêng.</li>
+<li><code>calendar-link.ts</code>: tạo link Google Calendar template và
+file <code>.ics</code>.</li>
+<li>Map:
+<code>https://www.google.com/maps?q=&lt;địa chỉ&gt;&amp;output=embed</code>
+(không cần API key). Chỉ đường dùng
+<code>maps/dir/?api=1&amp;destination=</code>.</li>
+</ul>
+<h2
+id="các-bước-thực-hiện-mỗi-bước-1-commit-không-có-dòng-co-authored-by">Các
+bước thực hiện (mỗi bước 1 commit, không có dòng Co-Authored-By)</h2>
+<ol start="0" type="1">
+<li><strong>Docs + git</strong>: chép plan này vào
+<code>docs/plan.md</code> và <code>docs/plan.html</code>, chạy
+<code>git init</code> và tạo <code>.gitignore</code>. Commit:
+<code>docs: plan clone thiệp cưới</code></li>
+<li><strong>Scaffold</strong>:
+<ul>
+<li>Vite React TS, Tailwind v4, alias <code>@/</code>,
+<code>shadcn init</code>, thêm các component shadcn cần dùng.</li>
+<li>Google Fonts, theme tokens (<code>--primary</code>… trong
+<code>index.css</code>).</li>
+<li>Layout mobile-first: max-w 480px canh giữa, có viền khi màn hình
+desktop. Commit:
+<code>feat: khởi tạo vite react tailwind shadcn</code></li>
+</ul></li>
+<li><strong>Model + util</strong>: zod schema,
+<code>default-invitation.ts</code>, <code>lunar.ts</code>,
+<code>vietqr.ts</code>, <code>calendar-link.ts</code>, kèm vitest. Ca
+test: 03/01/2026 phải ra 15/11 Ất Tỵ. Commit:
+<code>feat: schema dữ liệu thiệp và tiện ích âm lịch/vietqr</code></li>
+<li><strong>Trang thiệp tĩnh</strong> (dùng default data, chưa nối DB),
+chia commit theo nhóm:
+<ul>
+<li>3a. CoverScreen (card, mở thiệp bằng animation motion) và
+FallingHearts.</li>
+<li>3b. HeroHeader và CeremonyInfo.</li>
+<li>3c. AlbumCarousel (Swiper coverflow + lightbox).</li>
+<li>3d. PartyInfo, MonthCalendar (ô tim), nút Thêm vào lịch,
+VenueMap.</li>
+<li>3e. DressCode, Schedule, Footer, reveal khi cuộn bằng React
+Bits.</li>
+<li>3f. MusicPlayer (đĩa xoay, bật nhạc khi bấm "Mở thiệp") và
+useAutoScroll (dừng khi người dùng chạm hoặc cuộn).</li>
+</ul></li>
+<li><strong>Supabase</strong>:
+<ul>
+<li>Viết migration, RLS, bucket, RPC <code>get_guest</code>; thêm
+<code>supabase.ts</code>.</li>
+<li><code>PublicInvitationPage</code> fetch theo slug. Thiệp chưa
+publish hoặc không tồn tại thì hiện trang 404 đẹp. Commit:
+<code>feat: kết nối supabase và trang thiệp theo slug</code></li>
+</ul></li>
+<li><strong>Tương tác khách</strong>:
+<ul>
+<li>RsvpDialog (shadcn Dialog + RadioGroup) và Guestbook (insert, danh
+sách, nút 🪄 lấy lời chúc mẫu ngẫu nhiên, honeypot chống spam).</li>
+<li>Tên khách qua <code>?g=code</code> / <code>?khach=</code>.</li>
+<li>GiftBox + GiftDrawer (shadcn Drawer, QR, Lưu QR tải ảnh về). Mỗi
+phần 1 commit.</li>
+</ul></li>
+<li><strong>Admin</strong>:
+<ul>
+<li>6a. Login (email/password), RequireAuth, Dashboard: danh sách thiệp,
+tạo mới (slug + tiêu đề), bật/tắt publish, copy link.</li>
+<li>6b. EditorPage: Accordion form theo section +
+<code>useFieldArray</code> (album, lịch trình, màu dress code, tài khoản
+quà). Preview live trong khung điện thoại dùng <code>watch()</code>. Có
+nút Lưu và cảnh báo khi rời trang mà chưa lưu.</li>
+<li>6c. ImageUploadField: nén ảnh, upload Storage, preview, hỗ trợ dán
+URL. Upload nhạc mp3 dùng chung field này.</li>
+<li>6d. Các tab Lời chúc (ẩn/xoá), RSVP (bảng + xuất CSV), Khách mời
+(thêm khách, copy link cá nhân hoá).</li>
+</ul></li>
+<li><strong>Deploy + chia sẻ</strong>:
+<ul>
+<li>Thêm <code>vercel.json</code>.</li>
+<li>Viết Vercel Edge Middleware cho <code>/:slug</code>: chèn
+<code>og:title</code> / <code>og:image</code> từ Supabase để khi share
+link qua Zalo/Messenger hiện đúng ảnh và tên cặp đôi (SPA thuần không
+làm được việc này).</li>
+<li>README hướng dẫn tạo Supabase project và admin. Commit:
+<code>feat: deploy vercel và og meta theo thiệp</code></li>
+</ul></li>
+</ol>
+<p><strong>Cần bạn chuẩn bị khi tới bước 4:</strong> tạo Supabase
+project, gửi <code>URL</code> + <code>anon key</code>, tạo 1 user admin.
+Ảnh cưới và nhạc mẫu thì để sau, upload qua admin.</p>
+<h2 id="kiểm-tra-verification">Kiểm tra (verification)</h2>
+<ul>
+<li><code>npm run build</code>, <code>npm run lint</code>,
+<code>npx vitest run</code> đều phải pass.</li>
+<li>Chạy <code>npm run dev</code> rồi dùng <strong>Chrome DevTools
+MCP</strong> (bản plugin <code>chrome-devtools-mcp</code>, bản thường
+không kết nối được Chrome). Mở song song trang gốc và bản clone ở
+390×844 và 1280×800, so sánh từng section.</li>
+<li>Test luồng người xem:
+<ul>
+<li>Mở bìa thì nhạc phát và auto-scroll chạy.</li>
+<li>Swipe album, mở lightbox.</li>
+<li>Thêm vào lịch, Chỉ đường.</li>
+<li>Gửi RSVP thì có dòng mới trong bảng <code>rsvps</code>.</li>
+<li>Gửi lời chúc thì lời chúc hiện ngay trong danh sách.</li>
+<li>Mở hộp quà, QR hiển thị đúng, Lưu QR tải được file.</li>
+<li><code>?g=code</code> hiện "Thân mời {tên}".</li>
+</ul></li>
+<li>Test admin:
+<ul>
+<li>Login, tạo thiệp, sửa text và upload ảnh thì preview đổi ngay.</li>
+<li>Lưu xong mở <code>/:slug</code> thấy cập nhật.</li>
+<li>Tắt publish thì trang ra 404.</li>
+<li>Ẩn lời chúc thì lời chúc biến mất trên trang public.</li>
+</ul></li>
+<li>Test RLS: dùng <code>curl</code> với anon key gọi <code>rsvps</code>
+/ <code>guests</code> phải bị chặn; <code>insert</code> vào
+<code>wishes</code> phải được.</li>
+</ul>
+</body>
+</html>
