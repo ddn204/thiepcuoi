@@ -11,6 +11,7 @@ import { CeremonyInfo } from './sections/CeremonyInfo'
 import { CoverScreen } from './sections/CoverScreen'
 import { DressCode } from './sections/DressCode'
 import { Footer } from './sections/Footer'
+import { Guestbook } from './sections/Guestbook'
 import { HeroHeader } from './sections/HeroHeader'
 import { PartyInfo } from './sections/PartyInfo'
 import { Schedule } from './sections/Schedule'
@@ -127,6 +128,7 @@ export function InvitationView({
           <VenueMap data={data} />
           <DressCode data={data} />
           <Schedule data={data} />
+          <Guestbook data={data} />
           <Footer data={data} />
         </main>
 

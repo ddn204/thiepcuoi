@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { normalizeInvitationData } from '@/data/default-invitation'
 import { getSupabase } from '@/lib/supabase'
 import type { Invitation } from '@/types/invitation'
@@ -30,6 +30,39 @@ export function useGuest(slug: string, code: string | null) {
       if (error) throw error
       return data?.[0] ?? null
     },
+  })
+}
+
+export type PublicWish = { id: string; name: string; message: string; created_at: string }
+
+/** Lời chúc hiển thị công khai (mới nhất trước). */
+export function useWishes(invitationId: string | undefined) {
+  return useQuery({
+    queryKey: ['wishes', invitationId],
+    enabled: Boolean(invitationId),
+    queryFn: async (): Promise<PublicWish[]> => {
+      const { data, error } = await getSupabase()
+        .from('wishes')
+        .select('id, name, message, created_at')
+        .eq('invitation_id', invitationId!)
+        .order('created_at', { ascending: false })
+        .limit(200)
+      if (error) throw error
+      return data
+    },
+  })
+}
+
+export function useAddWish(invitationId: string | undefined) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (input: { name: string; message: string }) => {
+      const { error } = await getSupabase()
+        .from('wishes')
+        .insert({ invitation_id: invitationId!, name: input.name.trim(), message: input.message.trim() })
+      if (error) throw error
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['wishes', invitationId] }),
   })
 }
 
