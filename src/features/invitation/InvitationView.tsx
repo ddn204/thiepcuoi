@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence } from 'motion/react'
 import type { InvitationData } from '@/types/invitation'
+import { AlbumCarousel } from './sections/AlbumCarousel'
 import { CeremonyInfo } from './sections/CeremonyInfo'
 import { CoverScreen } from './sections/CoverScreen'
 import { HeroHeader } from './sections/HeroHeader'
@@ -55,6 +56,7 @@ export function InvitationView({ data, guestName, mode = 'live', showCover = tru
         )}
         <HeroHeader data={data} />
         <CeremonyInfo data={data} />
+        <AlbumCarousel data={data} />
         <div className="h-24" />
       </main>
 

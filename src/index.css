@@ -178,3 +178,19 @@
       linear-gradient(160deg, var(--inv-primary) 0%, var(--inv-primary-dark) 100%);
   }
 }
+
+/* Chấm phân trang của album: chấm tròn, chấm đang chọn kéo dài */
+.album-swiper {
+  --swiper-pagination-color: var(--inv-primary);
+  --swiper-pagination-bullet-inactive-color: var(--inv-primary);
+  --swiper-pagination-bullet-inactive-opacity: 0.25;
+  --swiper-pagination-bullet-size: 9px;
+  --swiper-pagination-bullet-horizontal-gap: 4px;
+}
+.album-swiper .swiper-pagination-bullet {
+  transition: width 0.3s ease;
+}
+.album-swiper .swiper-pagination-bullet-active {
+  width: 26px;
+  border-radius: 999px;
+}
