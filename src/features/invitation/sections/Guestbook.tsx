@@ -52,7 +52,7 @@ export function Guestbook({ data }: { data: InvitationData }) {
     setMessage(options[Math.floor(Math.random() * options.length)])
   }
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!canSubmit) return
     // Bot điền ô ẩn → giả vờ thành công, không ghi DB

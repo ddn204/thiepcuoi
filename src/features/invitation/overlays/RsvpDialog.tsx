@@ -59,7 +59,7 @@ export function RsvpDialog({ open, onOpenChange }: RsvpDialogProps) {
 
   const canSubmit = name.trim().length > 0 && attending !== null && !submit.isPending
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!canSubmit) return
     const thanks = attending ? 'Cảm ơn bạn! Hẹn gặp bạn tại tiệc cưới nhé ♥' : 'Cảm ơn bạn đã báo cho chúng tôi ♥'
