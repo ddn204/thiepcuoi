@@ -26,6 +26,7 @@ import { cn } from '@/lib/utils'
 import { invitationDataSchema, type Invitation, type InvitationData } from '@/types/invitation'
 import { isDuplicateSlugError, useInvitation, useUpdateInvitation } from './api'
 import { invitationUrl } from './share'
+import { GuestsTab } from './tabs/GuestsTab'
 import { RsvpTab } from './tabs/RsvpTab'
 import { WishesTab } from './tabs/WishesTab'
 import { GiftFields } from './editor/fields/GiftFields'
@@ -187,6 +188,7 @@ export function Editor({ invitation }: { invitation: Invitation }) {
                     <TabsTrigger value="content">Nội dung</TabsTrigger>
                     <TabsTrigger value="wishes">Lời chúc</TabsTrigger>
                     <TabsTrigger value="rsvps">Tham dự</TabsTrigger>
+                    <TabsTrigger value="guests">Khách mời</TabsTrigger>
                   </TabsList>
 
                   <TabsContent value="content" className="space-y-4">
@@ -246,6 +248,10 @@ export function Editor({ invitation }: { invitation: Invitation }) {
 
                   <TabsContent value="rsvps">
                     <RsvpTab invitationId={invitation.id} slug={invitation.slug} />
+                  </TabsContent>
+
+                  <TabsContent value="guests">
+                    <GuestsTab invitationId={invitation.id} slug={invitation.slug} published={invitation.published} />
                   </TabsContent>
                 </Tabs>
               </div>
