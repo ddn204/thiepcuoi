@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import type { Session } from '@supabase/supabase-js'
 import { defaultInvitation } from '@/data/default-invitation'
-import { getSupabase, isSupabaseConfigured } from '@/lib/supabase'
+import { getSupabase, isSupabaseConfigured, MEDIA_BUCKET } from '@/lib/supabase'
 import type { GuestRow, RsvpRow, WishRow } from '@/types/database'
 import type { InvitationData } from '@/types/invitation'
 import { toInvitation } from '../invitation/api'
@@ -119,8 +119,16 @@ export function useDeleteInvitation() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await getSupabase().from('invitations').delete().eq('id', id)
+      const supabase = getSupabase()
+      const { error } = await supabase.from('invitations').delete().eq('id', id)
       if (error) throw error
+      // Dọn ảnh/nhạc trong thư mục `{id}/` của thiệp; lỗi ở bước này không làm hỏng việc xoá thiệp
+      const media = supabase.storage.from(MEDIA_BUCKET)
+      const { data: files } = await media.list(id, { limit: 1000 })
+      if (files?.length) {
+        const { error: removeError } = await media.remove(files.map((file) => `${id}/${file.name}`))
+        if (removeError) console.warn('Không xoá được media của thiệp', removeError)
+      }
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['admin', 'invitations'] }),
   })
