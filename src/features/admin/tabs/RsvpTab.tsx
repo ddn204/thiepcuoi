@@ -68,7 +68,9 @@ export function RsvpTab({ invitationId, slug }: { invitationId: string; slug: st
               <TableRow key={rsvp.id}>
                 <TableCell className="max-w-56 pl-4 whitespace-normal">
                   <p className="font-medium break-words">{rsvp.name}</p>
-                  {guestName && <p className="text-xs text-muted-foreground">Link: {guestName}</p>}
+                  {guestName && guestName !== rsvp.name && (
+                    <p className="text-xs text-muted-foreground">Link mời: {guestName}</p>
+                  )}
                 </TableCell>
                 <TableCell>
                   <Badge variant={rsvp.attending ? 'default' : 'secondary'}>
