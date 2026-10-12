@@ -56,7 +56,7 @@ export function GiftFields() {
         <div key={field.id} className="space-y-3 rounded-lg border p-3">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium">Tài khoản {index + 1}</span>
-            <Button type="button" variant="ghost" size="icon-sm" onClick={() => remove(index)}>
+            <Button type="button" variant="ghost" size="icon-sm" title="Xoá tài khoản" onClick={() => remove(index)}>
               <Trash2 />
             </Button>
           </div>

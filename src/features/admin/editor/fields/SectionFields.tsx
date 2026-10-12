@@ -134,6 +134,7 @@ export function AlbumFields() {
                   type="button"
                   variant="ghost"
                   size="icon-sm"
+                  title="Đưa lên trước"
                   disabled={index === 0}
                   onClick={() => move(index, index - 1)}
                 >
@@ -143,12 +144,13 @@ export function AlbumFields() {
                   type="button"
                   variant="ghost"
                   size="icon-sm"
+                  title="Đưa xuống sau"
                   disabled={index === fields.length - 1}
                   onClick={() => move(index, index + 1)}
                 >
                   <ArrowDown />
                 </Button>
-                <Button type="button" variant="ghost" size="icon-sm" onClick={() => remove(index)}>
+                <Button type="button" variant="ghost" size="icon-sm" title="Xoá ảnh" onClick={() => remove(index)}>
                   <Trash2 />
                 </Button>
               </div>
@@ -206,6 +208,7 @@ export function DressCodeFields() {
                     type="button"
                     variant="ghost"
                     size="icon"
+                    title="Xoá màu"
                     onClick={() => field.onChange(field.value.filter((_, i) => i !== index))}
                   >
                     <Trash2 />
@@ -252,7 +255,7 @@ export function ScheduleFields() {
               label={index === 0 ? 'Hoạt động' : ''}
               className="flex-1"
             />
-            <Button type="button" variant="ghost" size="icon" onClick={() => remove(index)}>
+            <Button type="button" variant="ghost" size="icon" title="Xoá mục" onClick={() => remove(index)}>
               <Trash2 />
             </Button>
           </div>
