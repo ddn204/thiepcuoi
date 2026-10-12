@@ -37,17 +37,7 @@ import {
   useSession,
   useUpdateInvitation,
 } from './api'
-
-export const invitationUrl = (slug: string) => `${window.location.origin}/${slug}`
-
-export async function copyText(text: string, message = 'Đã sao chép') {
-  try {
-    await navigator.clipboard.writeText(text)
-    toast.success(message)
-  } catch {
-    toast.error('Không sao chép được')
-  }
-}
+import { copyText, invitationUrl } from './share'
 
 const dateFormat = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short' })
 
