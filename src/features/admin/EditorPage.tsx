@@ -26,6 +26,7 @@ import { cn } from '@/lib/utils'
 import { invitationDataSchema, type Invitation, type InvitationData } from '@/types/invitation'
 import { isDuplicateSlugError, useInvitation, useUpdateInvitation } from './api'
 import { invitationUrl } from './share'
+import { WishesTab } from './tabs/WishesTab'
 import { GiftFields } from './editor/fields/GiftFields'
 import {
   AlbumFields,
@@ -181,8 +182,9 @@ export function Editor({ invitation }: { invitation: Invitation }) {
             <div className={cn('min-w-0 flex-1 overflow-y-auto', mobileView === 'preview' && 'hidden lg:block')}>
               <div className="mx-auto max-w-2xl p-4 pb-24">
                 <Tabs defaultValue="content">
-                  <TabsList className="mb-4">
+                  <TabsList className="mb-4 w-full">
                     <TabsTrigger value="content">Nội dung</TabsTrigger>
+                    <TabsTrigger value="wishes">Lời chúc</TabsTrigger>
                   </TabsList>
 
                   <TabsContent value="content" className="space-y-4">
@@ -234,6 +236,10 @@ export function Editor({ invitation }: { invitation: Invitation }) {
                         </AccordionItem>
                       ))}
                     </Accordion>
+                  </TabsContent>
+
+                  <TabsContent value="wishes">
+                    <WishesTab invitationId={invitation.id} />
                   </TabsContent>
                 </Tabs>
               </div>
