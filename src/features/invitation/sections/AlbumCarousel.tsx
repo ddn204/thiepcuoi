@@ -1,84 +1,70 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+import type { Swiper as SwiperType } from 'swiper'
+import { Autoplay, EffectCoverflow } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import Lightbox from 'yet-another-react-lightbox'
+import 'swiper/css'
+import 'swiper/css/effect-coverflow'
 import 'yet-another-react-lightbox/styles.css'
 import { cn } from '@/lib/utils'
 import type { InvitationData } from '@/types/invitation'
 import { Reveal } from '../ui/Reveal'
 import { SectionTitle } from '../ui/SectionTitle'
 
-const AUTOPLAY_MS = 1400
-const SWIPE_THRESHOLD = 40
-const MAX_VISIBLE_OFFSET = 3
+/** Độ mờ theo khoảng cách tới ảnh giữa: 0, 1, 2, 3 nấc (xa hơn thì ẩn) */
+const OPACITY_BY_DISTANCE = [1, 0.75, 0.5, 0.3, 0]
 
-/** Khoảng cách vòng tròn từ ảnh `index` tới ảnh đang chọn, trong khoảng [-n/2, n/2). */
-function circularOffset(index: number, active: number, total: number) {
-  const half = Math.floor(total / 2)
-  return ((((index - active + half) % total) + total) % total) - half
-}
+/** Loop của Swiper cần đủ slide để mỗi bên ảnh giữa có 3 ảnh, ít hơn sẽ bị xếp lệch một bên */
+const MIN_LOOP_SLIDES = 8
 
-/** Ảnh giữa thẳng; ảnh hai bên lệch ngang, lùi sâu, xoay 45° mỗi nấc và mờ dần. */
-function cardStyle(offset: number): React.CSSProperties {
-  const distance = Math.abs(offset)
-  const scale = distance === 0 ? 1 : distance === 1 ? 0.85 : 0.7
-  const opacity = distance > MAX_VISIBLE_OFFSET ? 0 : [1, 0.75, 0.5, 0.3][distance]
-  return {
-    transform: `translateX(${offset * 60}%) translateZ(${-150 * distance}px) rotateY(${45 * offset}deg) scale(${scale})`,
-    opacity,
-    zIndex: 100 - distance,
-    pointerEvents: distance > MAX_VISIBLE_OFFSET ? 'none' : undefined,
+type SlideEl = HTMLElement & { progress?: number }
+
+/** Coverflow của Swiper không làm mờ ảnh hai bên → tự đặt opacity theo progress từng slide. */
+function fadeSideSlides(swiper: SwiperType) {
+  for (const slide of swiper.slides as SlideEl[]) {
+    const distance = Math.min(Math.abs(slide.progress ?? 0), OPACITY_BY_DISTANCE.length - 1)
+    const step = Math.floor(distance)
+    const next = OPACITY_BY_DISTANCE[Math.min(step + 1, OPACITY_BY_DISTANCE.length - 1)]
+    const opacity = OPACITY_BY_DISTANCE[step] + (next - OPACITY_BY_DISTANCE[step]) * (distance - step)
+    slide.style.opacity = String(opacity)
   }
 }
 
-/** Album ảnh: carousel 3D tự chạy, vuốt ngang để chuyển, bấm ảnh giữa để xem phóng to. */
+/** Album ảnh: Swiper coverflow tự chạy, vuốt để chuyển, bấm ảnh giữa để xem phóng to. */
 export function AlbumCarousel({ data }: { data: InvitationData }) {
   const { album } = data
   const photos = album.photos
   const total = photos.length
-  const [active, setActive] = useState(0)
+  const loop = total >= 3
+  // Nhân bản danh sách ảnh khi ít ảnh để loop xếp cân hai bên; slide thứ i là ảnh i % total
+  const copies = loop ? Math.ceil(MIN_LOOP_SLIDES / total) : 1
+  const slides = Array.from({ length: copies }, () => photos).flat()
+  const [swiper, setSwiper] = useState<SwiperType | null>(null)
+  const [activeSlide, setActiveSlide] = useState(0)
+  const active = total ? activeSlide % total : 0
   const [lightboxIndex, setLightboxIndex] = useState(-1)
-  const [dragging, setDragging] = useState(false)
-  const pointerStart = useRef<number | null>(null)
-  const swiped = useRef(false)
 
-  const go = (index: number) => setActive(((index % total) + total) % total)
-
-  // Tự chuyển ảnh; đặt lại bộ đếm mỗi lần đổi ảnh, tạm dừng khi đang vuốt / xem phóng to
+  // Tạm dừng tự chạy khi đang xem ảnh phóng to
   useEffect(() => {
-    if (total < 2 || dragging || lightboxIndex >= 0) return
-    const timer = window.setTimeout(() => setActive((current) => (current + 1) % total), AUTOPLAY_MS)
-    return () => window.clearTimeout(timer)
-  }, [active, total, dragging, lightboxIndex])
-
-  useEffect(() => {
-    if (active >= total) setActive(0)
-  }, [active, total])
+    if (!swiper?.autoplay || swiper.destroyed) return
+    if (lightboxIndex >= 0) swiper.autoplay.stop()
+    else swiper.autoplay.start()
+  }, [swiper, lightboxIndex])
 
   if (!album.enabled || total === 0) return null
 
-  const handlePointerDown = (event: React.PointerEvent) => {
-    pointerStart.current = event.clientX
-    swiped.current = false
-    setDragging(true)
+  const handleSlideClick = (slideIndex: number) => {
+    if (slideIndex === activeSlide) setLightboxIndex(slideIndex % total)
+    else swiper?.slideToLoop(slideIndex)
   }
 
-  const handlePointerUp = (event: React.PointerEvent) => {
-    if (pointerStart.current !== null) {
-      const dx = event.clientX - pointerStart.current
-      if (Math.abs(dx) > SWIPE_THRESHOLD) {
-        // Chặn cú click đi kèm thao tác kéo chuột, rồi mở lại ngay sau đó
-        swiped.current = true
-        window.setTimeout(() => (swiped.current = false), 0)
-        go(active + (dx < 0 ? 1 : -1))
-      }
-    }
-    pointerStart.current = null
-    setDragging(false)
-  }
-
-  const handleCardClick = (index: number, offset: number) => {
-    if (swiped.current) return
-    if (offset === 0) setLightboxIndex(index)
-    else go(index)
+  /** Bấm chấm: tới bản sao gần nhất của ảnh đó để không phải quay cả vòng */
+  const goToPhoto = (photoIndex: number) => {
+    const candidates = Array.from({ length: copies }, (_, copy) => copy * total + photoIndex)
+    const nearest = candidates.reduce((best, slideIndex) =>
+      Math.abs(slideIndex - activeSlide) < Math.abs(best - activeSlide) ? slideIndex : best,
+    )
+    swiper?.slideToLoop(nearest)
   }
 
   return (
@@ -88,42 +74,41 @@ export function AlbumCarousel({ data }: { data: InvitationData }) {
       </Reveal>
 
       <Reveal className="relative mt-5 w-full max-w-[380px]" delay={0.1}>
-        <div
-          className="relative h-[340px] touch-pan-y select-none"
-          onPointerDown={handlePointerDown}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={handlePointerUp}
-          onPointerLeave={(event) => pointerStart.current !== null && handlePointerUp(event)}
+        <Swiper
+          className="album-swiper h-[340px] touch-pan-y"
+          modules={[EffectCoverflow, Autoplay]}
+          effect="coverflow"
+          centeredSlides
+          slidesPerView="auto"
+          loop={loop}
+          // centeredSlides + slidesPerView 'auto' chỉ giữ ~1 slide đệm mỗi bên → thêm để luôn đủ 3 ảnh mỗi bên
+          loopAdditionalSlides={2}
+          speed={1100}
+          grabCursor
+          watchSlidesProgress
+          autoplay={{ delay: 300, disableOnInteraction: false }}
+          coverflowEffect={{ rotate: -45, stretch: '40%', depth: 150, modifier: 1, scale: 0.85, slideShadows: false }}
+          onSwiper={setSwiper}
+          onRealIndexChange={(instance) => setActiveSlide(instance.realIndex)}
+          onProgress={fadeSideSlides}
         >
-          <div className="relative flex size-full items-center justify-center [perspective:1000px]">
-            {photos.map((photo, index) => {
-              const offset = circularOffset(index, active, total)
-              return (
-                <div
-                  key={`${photo.url}-${index}`}
-                  role="button"
-                  tabIndex={offset === 0 ? 0 : -1}
-                  aria-label={offset === 0 ? `Xem ảnh ${index + 1}` : `Chuyển tới ảnh ${index + 1}`}
-                  onClick={() => handleCardClick(index, offset)}
-                  onKeyDown={(event) => event.key === 'Enter' && handleCardClick(index, offset)}
-                  className={cn(
-                    'absolute aspect-[2/3] h-[92%] cursor-pointer overflow-hidden rounded-2xl bg-cream shadow-xl transition-all duration-[1100ms] ease-[cubic-bezier(0.4,0,0.2,1)]',
-                    offset === 0 && 'ring-2 ring-white/30',
-                  )}
-                  style={cardStyle(offset)}
-                >
-                  <img
-                    src={photo.url}
-                    alt={photo.alt}
-                    draggable={false}
-                    loading={Math.abs(offset) <= 1 ? 'eager' : 'lazy'}
-                    className="size-full object-cover"
-                  />
-                </div>
-              )
-            })}
-          </div>
-        </div>
+          {slides.map((photo, slideIndex) => (
+            <SwiperSlide key={`${photo.url}-${slideIndex}`} className="album-slide">
+              <button
+                type="button"
+                onClick={() => handleSlideClick(slideIndex)}
+                aria-label={
+                  slideIndex === activeSlide
+                    ? `Xem ảnh ${(slideIndex % total) + 1}`
+                    : `Chuyển tới ảnh ${(slideIndex % total) + 1}`
+                }
+                className="album-card block size-full overflow-hidden rounded-2xl bg-cream shadow-xl"
+              >
+                <img src={photo.url} alt={photo.alt} draggable={false} className="size-full object-cover" />
+              </button>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
         {total > 1 && (
           <div className="mt-3 flex items-center justify-center gap-1.5">
@@ -132,7 +117,7 @@ export function AlbumCarousel({ data }: { data: InvitationData }) {
                 key={index}
                 type="button"
                 aria-label={`Tới ảnh ${index + 1}`}
-                onClick={() => go(index)}
+                onClick={() => goToPhoto(index)}
                 className={cn(
                   'h-2 rounded-full bg-current transition-all duration-300',
                   index === active ? 'w-6 opacity-70' : 'w-2 opacity-25 hover:opacity-40',

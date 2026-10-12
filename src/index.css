@@ -178,3 +178,27 @@
       linear-gradient(160deg, var(--inv-primary) 0%, var(--inv-primary-dark) 100%);
   }
 }
+
+/* Album: Swiper coverflow chỉnh theo thông số đo từ mẫu gốc */
+.album-swiper {
+  overflow: visible;
+  --swiper-wrapper-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.album-swiper.swiper-3d {
+  perspective: 1000px;
+}
+.album-swiper .swiper-wrapper {
+  align-items: center;
+}
+.album-swiper .album-slide {
+  width: auto;
+  height: 92%;
+  aspect-ratio: 2 / 3;
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.album-swiper .swiper-slide-active .album-card {
+  box-shadow:
+    0 0 0 2px rgb(255 255 255 / 0.3),
+    var(--tw-shadow, 0 20px 25px -5px rgb(0 0 0 / 0.1));
+}
