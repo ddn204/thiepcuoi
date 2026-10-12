@@ -41,6 +41,7 @@ import {
   ScheduleFields,
   ThemeFields,
 } from './editor/fields/SectionFields'
+import { EditorContext } from './editor/editor-context'
 import { PhonePreview } from './editor/PhonePreview'
 
 /** Các mục trong form; `keys` là trường gốc của InvitationData để đánh dấu mục đang có lỗi. */
@@ -62,7 +63,9 @@ const SECTIONS: { id: string; title: string; keys: (keyof InvitationData)[]; con
 ]
 
 function UnsavedChangesGuard({ dirty }: { dirty: boolean }) {
-  const blocker = useBlocker(({ currentLocation, nextLocation }) => dirty && currentLocation.pathname !== nextLocation.pathname)
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) => dirty && currentLocation.pathname !== nextLocation.pathname,
+  )
 
   useEffect(() => {
     if (!dirty) return
@@ -124,7 +127,9 @@ export function Editor({ invitation }: { invitation: Invitation }) {
             toast.success('Đã lưu thiệp')
           },
           onError: (error) =>
-            toast.error(isDuplicateSlugError(error) ? 'Đường dẫn này đã có thiệp khác dùng' : 'Lưu thất bại, thử lại nhé'),
+            toast.error(
+              isDuplicateSlugError(error) ? 'Đường dẫn này đã có thiệp khác dùng' : 'Lưu thất bại, thử lại nhé',
+            ),
         },
       )
     },
@@ -138,115 +143,129 @@ export function Editor({ invitation }: { invitation: Invitation }) {
     )
 
   return (
-    <FormProvider {...form}>
-      <div className="flex h-dvh flex-col bg-muted/40">
-        <header className="flex h-14 shrink-0 items-center gap-2 border-b bg-background px-3 sm:px-4">
-          <Button variant="ghost" size="icon" asChild title="Về danh sách">
-            <Link to="/admin">
-              <ArrowLeft />
-            </Link>
-          </Button>
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold">{title || 'Thiệp chưa đặt tên'}</p>
-            <p className="truncate text-xs text-muted-foreground">/{invitation.slug}</p>
-          </div>
-          {dirty && <Badge variant="outline" className="hidden sm:inline-flex">Chưa lưu</Badge>}
-          <label className="hidden items-center gap-2 text-sm sm:flex">
-            Xuất bản
-            <Switch checked={invitation.published} disabled={update.isPending} onCheckedChange={togglePublished} />
-          </label>
-          <Button variant="outline" size="sm" asChild className="h-8">
-            <a href={invitationUrl(invitation.slug)} target="_blank" rel="noreferrer">
-              <ExternalLink />
-              <span className="hidden sm:inline">Xem thiệp</span>
-            </a>
-          </Button>
-          <Button size="sm" className="h-8" onClick={save} disabled={!dirty || update.isPending}>
-            {update.isPending ? <Loader2 className="animate-spin" /> : <Save />}
-            Lưu
-          </Button>
-        </header>
-
-        <div className="flex min-h-0 flex-1">
-          <div className={cn('min-w-0 flex-1 overflow-y-auto', mobileView === 'preview' && 'hidden lg:block')}>
-            <div className="mx-auto max-w-2xl p-4 pb-24">
-              <Tabs defaultValue="content">
-                <TabsList className="mb-4">
-                  <TabsTrigger value="content">Nội dung</TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="content" className="space-y-4">
-                  <div className="grid gap-4 rounded-xl border bg-background p-4 sm:grid-cols-2">
-                    <div className="space-y-1.5">
-                      <Label htmlFor="meta-title">Tên thiệp (chỉ admin thấy)</Label>
-                      <Input id="meta-title" value={title} onChange={(e) => setTitle(e.target.value)} />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="meta-slug">Đường dẫn</Label>
-                      <Input
-                        id="meta-slug"
-                        value={slug}
-                        aria-invalid={Boolean(slugError)}
-                        onChange={(e) => setSlug(e.target.value.toLowerCase())}
-                      />
-                      {slugError ? (
-                        <p className="text-xs text-destructive">{slugError}</p>
-                      ) : (
-                        <p className="truncate text-xs text-muted-foreground">{invitationUrl(slug)}</p>
-                      )}
-                    </div>
-                    <label className="flex items-center justify-between gap-2 text-sm sm:hidden">
-                      Xuất bản
-                      <Switch checked={invitation.published} disabled={update.isPending} onCheckedChange={togglePublished} />
-                    </label>
-                  </div>
-
-                  <Accordion type="multiple" defaultValue={['cover']} className="rounded-xl border bg-background px-4">
-                    {SECTIONS.map((section) => (
-                      <AccordionItem key={section.id} value={section.id}>
-                        <AccordionTrigger className="text-base">
-                          <span className="flex items-center gap-2">
-                            {section.title}
-                            {sectionHasError(section.keys, errors) && (
-                              <span className="size-2 rounded-full bg-destructive" title="Có trường chưa hợp lệ" />
-                            )}
-                          </span>
-                        </AccordionTrigger>
-                        <AccordionContent className="pt-1 pb-5">{section.content}</AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
-                </TabsContent>
-              </Tabs>
+    <EditorContext.Provider value={{ invitationId: invitation.id }}>
+      <FormProvider {...form}>
+        <div className="flex h-dvh flex-col bg-muted/40">
+          <header className="flex h-14 shrink-0 items-center gap-2 border-b bg-background px-3 sm:px-4">
+            <Button variant="ghost" size="icon" asChild title="Về danh sách">
+              <Link to="/admin">
+                <ArrowLeft />
+              </Link>
+            </Button>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-semibold">{title || 'Thiệp chưa đặt tên'}</p>
+              <p className="truncate text-xs text-muted-foreground">/{invitation.slug}</p>
             </div>
+            {dirty && (
+              <Badge variant="outline" className="hidden sm:inline-flex">
+                Chưa lưu
+              </Badge>
+            )}
+            <label className="hidden items-center gap-2 text-sm sm:flex">
+              Xuất bản
+              <Switch checked={invitation.published} disabled={update.isPending} onCheckedChange={togglePublished} />
+            </label>
+            <Button variant="outline" size="sm" asChild className="h-8">
+              <a href={invitationUrl(invitation.slug)} target="_blank" rel="noreferrer">
+                <ExternalLink />
+                <span className="hidden sm:inline">Xem thiệp</span>
+              </a>
+            </Button>
+            <Button size="sm" className="h-8" onClick={save} disabled={!dirty || update.isPending}>
+              {update.isPending ? <Loader2 className="animate-spin" /> : <Save />}
+              Lưu
+            </Button>
+          </header>
+
+          <div className="flex min-h-0 flex-1">
+            <div className={cn('min-w-0 flex-1 overflow-y-auto', mobileView === 'preview' && 'hidden lg:block')}>
+              <div className="mx-auto max-w-2xl p-4 pb-24">
+                <Tabs defaultValue="content">
+                  <TabsList className="mb-4">
+                    <TabsTrigger value="content">Nội dung</TabsTrigger>
+                  </TabsList>
+
+                  <TabsContent value="content" className="space-y-4">
+                    <div className="grid gap-4 rounded-xl border bg-background p-4 sm:grid-cols-2">
+                      <div className="space-y-1.5">
+                        <Label htmlFor="meta-title">Tên thiệp (chỉ admin thấy)</Label>
+                        <Input id="meta-title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                      </div>
+                      <div className="space-y-1.5">
+                        <Label htmlFor="meta-slug">Đường dẫn</Label>
+                        <Input
+                          id="meta-slug"
+                          value={slug}
+                          aria-invalid={Boolean(slugError)}
+                          onChange={(e) => setSlug(e.target.value.toLowerCase())}
+                        />
+                        {slugError ? (
+                          <p className="text-xs text-destructive">{slugError}</p>
+                        ) : (
+                          <p className="truncate text-xs text-muted-foreground">{invitationUrl(slug)}</p>
+                        )}
+                      </div>
+                      <label className="flex items-center justify-between gap-2 text-sm sm:hidden">
+                        Xuất bản
+                        <Switch
+                          checked={invitation.published}
+                          disabled={update.isPending}
+                          onCheckedChange={togglePublished}
+                        />
+                      </label>
+                    </div>
+
+                    <Accordion
+                      type="multiple"
+                      defaultValue={['cover']}
+                      className="rounded-xl border bg-background px-4"
+                    >
+                      {SECTIONS.map((section) => (
+                        <AccordionItem key={section.id} value={section.id}>
+                          <AccordionTrigger className="text-base">
+                            <span className="flex items-center gap-2">
+                              {section.title}
+                              {sectionHasError(section.keys, errors) && (
+                                <span className="size-2 rounded-full bg-destructive" title="Có trường chưa hợp lệ" />
+                              )}
+                            </span>
+                          </AccordionTrigger>
+                          <AccordionContent className="pt-1 pb-5">{section.content}</AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </TabsContent>
+                </Tabs>
+              </div>
+            </div>
+
+            <aside
+              className={cn(
+                'w-full shrink-0 flex-col items-center gap-3 overflow-y-auto border-l bg-neutral-100 p-4 lg:flex lg:w-[440px]',
+                mobileView === 'preview' ? 'flex' : 'hidden',
+              )}
+            >
+              <label className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Switch checked={showCover} onCheckedChange={setShowCover} />
+                Hiện màn bìa
+              </label>
+              <PhonePreview key={String(showCover)} data={previewData} showCover={showCover} />
+            </aside>
           </div>
 
-          <aside
-            className={cn(
-              'w-full shrink-0 flex-col items-center gap-3 overflow-y-auto border-l bg-neutral-100 p-4 lg:flex lg:w-[440px]',
-              mobileView === 'preview' ? 'flex' : 'hidden',
-            )}
+          {/* Nút chuyển form / xem trước trên màn hình nhỏ */}
+          <Button
+            className="fixed right-4 bottom-4 z-20 rounded-full shadow-lg lg:hidden"
+            onClick={() => setMobileView((view) => (view === 'form' ? 'preview' : 'form'))}
           >
-            <label className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Switch checked={showCover} onCheckedChange={setShowCover} />
-              Hiện màn bìa
-            </label>
-            <PhonePreview key={String(showCover)} data={previewData} showCover={showCover} />
-          </aside>
+            {mobileView === 'form' ? <Eye /> : <PencilLine />}
+            {mobileView === 'form' ? 'Xem trước' : 'Chỉnh sửa'}
+          </Button>
         </div>
 
-        {/* Nút chuyển form / xem trước trên màn hình nhỏ */}
-        <Button
-          className="fixed right-4 bottom-4 z-20 rounded-full shadow-lg lg:hidden"
-          onClick={() => setMobileView((view) => (view === 'form' ? 'preview' : 'form'))}
-        >
-          {mobileView === 'form' ? <Eye /> : <PencilLine />}
-          {mobileView === 'form' ? 'Xem trước' : 'Chỉnh sửa'}
-        </Button>
-      </div>
-
-      <UnsavedChangesGuard dirty={dirty && !update.isPending} />
-    </FormProvider>
+        <UnsavedChangesGuard dirty={dirty && !update.isPending} />
+      </FormProvider>
+    </EditorContext.Provider>
   )
 }
 

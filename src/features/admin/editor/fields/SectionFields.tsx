@@ -1,9 +1,11 @@
-import { ArrowDown, ArrowUp, Plus, Trash2 } from 'lucide-react'
+import { useRef } from 'react'
+import { ArrowDown, ArrowUp, ImagePlus, Loader2, Plus, Trash2 } from 'lucide-react'
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import type { InvitationData } from '@/types/invitation'
 import { ColorField, ColorInput, FieldGrid, FieldShell, SwitchField, TextField } from './FormFields'
-import { ImageField } from './ImageField'
+import { useMediaUpload } from '../use-media-upload'
+import { AudioField, ImageField } from './ImageField'
 
 export function ThemeFields() {
   return (
@@ -105,6 +107,18 @@ export function PartyFields() {
 export function AlbumFields() {
   const { control } = useFormContext<InvitationData>()
   const { fields, append, remove, move } = useFieldArray({ control, name: 'album.photos' })
+  const fileRef = useRef<HTMLInputElement>(null)
+  const { upload, uploading } = useMediaUpload('image')
+
+  /** Chọn nhiều ảnh một lúc: tải lần lượt rồi thêm vào cuối album */
+  const handleFiles = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = [...(event.target.files ?? [])].slice(0, 30 - fields.length)
+    event.target.value = ''
+    for (const [offset, file] of files.entries()) {
+      const url = await upload(file)
+      if (url) append({ url, alt: `Ảnh cưới ${fields.length + offset + 1}` })
+    }
+  }
 
   return (
     <div className="space-y-4">
@@ -116,7 +130,13 @@ export function AlbumFields() {
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm font-medium">Ảnh {index + 1}</span>
               <div className="flex gap-1">
-                <Button type="button" variant="ghost" size="icon-sm" disabled={index === 0} onClick={() => move(index, index - 1)}>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  disabled={index === 0}
+                  onClick={() => move(index, index - 1)}
+                >
                   <ArrowUp />
                 </Button>
                 <Button
@@ -137,10 +157,24 @@ export function AlbumFields() {
           </div>
         ))}
       </div>
-      <Button type="button" variant="outline" onClick={() => append({ url: '', alt: `Ảnh cưới ${fields.length + 1}` })}>
-        <Plus />
-        Thêm ảnh
-      </Button>
+      <div className="flex flex-wrap gap-2">
+        <Button type="button" variant="outline" disabled={uploading} onClick={() => fileRef.current?.click()}>
+          {uploading ? <Loader2 className="animate-spin" /> : <ImagePlus />}
+          {uploading ? 'Đang tải ảnh…' : 'Tải nhiều ảnh lên'}
+        </Button>
+        <Button type="button" variant="ghost" onClick={() => append({ url: '', alt: `Ảnh cưới ${fields.length + 1}` })}>
+          <Plus />
+          Thêm ô ảnh trống
+        </Button>
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+          multiple
+          hidden
+          onChange={handleFiles}
+        />
+      </div>
     </div>
   )
 }
@@ -179,7 +213,12 @@ export function DressCodeFields() {
                 </div>
               ))}
               {field.value.length < 8 && (
-                <Button type="button" variant="outline" size="sm" onClick={() => field.onChange([...field.value, '#c9a24a'])}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => field.onChange([...field.value, '#c9a24a'])}
+                >
                   <Plus />
                   Thêm màu
                 </Button>
@@ -202,8 +241,17 @@ export function ScheduleFields() {
       <div className="space-y-2">
         {fields.map((field, index) => (
           <div key={field.id} className="flex items-end gap-2">
-            <TextField name={`schedule.items.${index}.time`} label={index === 0 ? 'Giờ' : ''} type="time" className="w-32" />
-            <TextField name={`schedule.items.${index}.label`} label={index === 0 ? 'Hoạt động' : ''} className="flex-1" />
+            <TextField
+              name={`schedule.items.${index}.time`}
+              label={index === 0 ? 'Giờ' : ''}
+              type="time"
+              className="w-32"
+            />
+            <TextField
+              name={`schedule.items.${index}.label`}
+              label={index === 0 ? 'Hoạt động' : ''}
+              className="flex-1"
+            />
             <Button type="button" variant="ghost" size="icon" onClick={() => remove(index)}>
               <Trash2 />
             </Button>
@@ -235,7 +283,7 @@ export function MusicFields() {
   return (
     <div className="space-y-4">
       <SwitchField name="music.enabled" label="Phát nhạc nền" hint="Nhạc bắt đầu khi khách bấm “Mở thiệp”" />
-      <TextField name="music.url" label="Link file nhạc (.mp3)" placeholder="https://…/nhac.mp3" />
+      <AudioField name="music.url" label="File nhạc" hint="MP3/M4A, tối đa 15MB" />
     </div>
   )
 }
