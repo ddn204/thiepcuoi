@@ -10,10 +10,10 @@ Frontend là Vite + React (SPA) deploy tĩnh lên Vercel. Dữ liệu, ảnh, đ
 ## 1. Tạo Supabase
 
 1. Tạo project tại [supabase.com](https://supabase.com) (region Singapore cho gần Việt Nam).
-2. Mở **SQL Editor**, dán toàn bộ nội dung `supabase/migrations/20261009000000_init.sql` rồi chạy. Lệnh này tạo:
+2. Mở **SQL Editor**, lần lượt dán và chạy từng file trong `supabase/migrations/` theo thứ tự tên file (`20261009000000_init.sql` rồi `20261012000000_admin_list_media.sql`). Các file này tạo:
    - Bảng `invitations`, `guests`, `wishes`, `rsvps`, `admin_users` kèm RLS.
    - Hàm `is_admin()` và RPC `get_guest(slug, code)`.
-   - Storage bucket public `invitation-media` (ảnh + nhạc, tối đa 15MB/file, chỉ admin được ghi).
+   - Storage bucket public `invitation-media` (ảnh + nhạc, tối đa 15MB/file, chỉ admin được ghi và liệt kê file).
 3. **Tạo tài khoản admin**: Authentication → Users → *Add user* → nhập email + mật khẩu, tick *Auto confirm*. Sau đó chạy trong SQL Editor (thay email):
 
    ```sql

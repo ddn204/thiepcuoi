@@ -270,9 +270,10 @@ cho từng khách.</li>
 <ol type="1">
 <li><p>Tạo project tại <a href="https://supabase.com">supabase.com</a>
 (region Singapore cho gần Việt Nam).</p></li>
-<li><p>Mở <strong>SQL Editor</strong>, dán toàn bộ nội dung
-<code>supabase/migrations/20261009000000_init.sql</code> rồi chạy. Lệnh
-này tạo:</p>
+<li><p>Mở <strong>SQL Editor</strong>, lần lượt dán và chạy từng file
+trong <code>supabase/migrations/</code> theo thứ tự tên file
+(<code>20261009000000_init.sql</code> rồi
+<code>20261012000000_admin_list_media.sql</code>). Các file này tạo:</p>
 <ul>
 <li>Bảng <code>invitations</code>, <code>guests</code>,
 <code>wishes</code>, <code>rsvps</code>, <code>admin_users</code> kèm
@@ -280,7 +281,7 @@ RLS.</li>
 <li>Hàm <code>is_admin()</code> và RPC
 <code>get_guest(slug, code)</code>.</li>
 <li>Storage bucket public <code>invitation-media</code> (ảnh + nhạc, tối
-đa 15MB/file, chỉ admin được ghi).</li>
+đa 15MB/file, chỉ admin được ghi và liệt kê file).</li>
 </ul></li>
 <li><p><strong>Tạo tài khoản admin</strong>: Authentication → Users →
 <em>Add user</em> → nhập email + mật khẩu, tick <em>Auto confirm</em>.
