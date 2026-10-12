@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Hướng dẫn thiệp cưới online</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+  :root{--fg:#2a1a1b;--muted:#6b5a5b;--accent:#511419;--bg:#fbf7f2;--line:#e6dcd0;--code:#f3ece3}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  main,body>*{max-width:860px;margin-left:auto;margin-right:auto}
+  body{padding:32px 16px 64px}
+  h1,h2,h3{color:var(--accent);line-height:1.25}
+  h1{font-size:28px;border-bottom:2px solid var(--accent);padding-bottom:8px}
+  h2{font-size:22px;margin-top:40px;border-bottom:1px solid var(--line);padding-bottom:4px}
+  code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.9em}
+  pre{background:var(--code);padding:14px;border-radius:8px;overflow:auto}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;width:100%;margin:12px 0}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#f1e7dc}
+  blockquote{margin:12px 0;padding:8px 14px;border-left:4px solid var(--accent);background:#f6eee6;color:var(--muted)}
+  a{color:var(--accent)}
+  </style>
+</head>
+<body>
+<h1 id="hướng-dẫn-cài-đặt-deploy-và-sử-dụng">Hướng dẫn cài đặt, deploy
+và sử dụng</h1>
+<p>Thiệp cưới online gồm 2 phần:</p>
+<ul>
+<li><strong>Trang thiệp</strong> <code>/{slug}</code>: khách mở link,
+xem thiệp, gửi lời chúc, xác nhận tham dự, xem QR mừng cưới.</li>
+<li><strong>Trang quản trị</strong> <code>/admin</code>: admin tạo thiệp
+cho từng cặp đôi, sửa chữ/ảnh/nhạc, xem lời chúc, RSVP, tạo link riêng
+cho từng khách.</li>
+</ul>
+<p>Frontend là Vite + React (SPA) deploy tĩnh lên Vercel. Dữ liệu, ảnh,
+đăng nhập dùng Supabase.</p>
+<h2 id="tạo-supabase">1. Tạo Supabase</h2>
+<ol type="1">
+<li><p>Tạo project tại <a href="https://supabase.com">supabase.com</a>
+(region Singapore cho gần Việt Nam).</p></li>
+<li><p>Mở <strong>SQL Editor</strong>, dán toàn bộ nội dung
+<code>supabase/migrations/20261009000000_init.sql</code> rồi chạy. Lệnh
+này tạo:</p>
+<ul>
+<li>Bảng <code>invitations</code>, <code>guests</code>,
+<code>wishes</code>, <code>rsvps</code>, <code>admin_users</code> kèm
+RLS.</li>
+<li>Hàm <code>is_admin()</code> và RPC
+<code>get_guest(slug, code)</code>.</li>
+<li>Storage bucket public <code>invitation-media</code> (ảnh + nhạc, tối
+đa 15MB/file, chỉ admin được ghi).</li>
+</ul></li>
+<li><p><strong>Tạo tài khoản admin</strong>: Authentication → Users →
+<em>Add user</em> → nhập email + mật khẩu, tick <em>Auto confirm</em>.
+Sau đó chạy trong SQL Editor (thay email):</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> <span class="kw">public</span>.admin_users (user_id)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="kw">id</span> <span class="kw">from</span> auth.users <span class="kw">where</span> email <span class="op">=</span> <span class="st">&#39;admin@example.com&#39;</span>;</span></code></pre></div>
+<p>Chỉ user có trong <code>admin_users</code> mới sửa được thiệp. Đăng
+nhập được nhưng không có trong bảng này thì vẫn không làm gì
+được.</p></li>
+<li><p><strong>Tắt đăng ký tự do</strong>: Authentication → Sign In /
+Providers → Email → tắt <em>Allow new users to sign up</em>.</p></li>
+<li><p>Lấy <strong>Project URL</strong> và <strong>Publishable
+key</strong> (hoặc <em>anon key</em> kiểu cũ) ở Project Settings →
+API.</p></li>
+</ol>
+<blockquote>
+<p>Không bao giờ đưa <code>service_role</code> / secret key vào biến môi
+trường của frontend. App chỉ cần URL + publishable/anon key, mọi quyền
+đã được RLS kiểm soát.</p>
+</blockquote>
+<h2 id="chạy-ở-máy">2. Chạy ở máy</h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> .env.example .env   <span class="co"># rồi điền SUPABASE_URL và NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev            <span class="co"># http://localhost:5173</span></span></code></pre></div>
+<ul>
+<li><code>/</code> và <code>/demo</code>: thiệp mẫu chạy hoàn toàn trên
+trình duyệt, không cần Supabase. Thêm <code>?khach=Tên</code> để thử lời
+mời có tên khách.</li>
+<li><code>/admin/playground</code> (chỉ khi <code>npm run dev</code>):
+thử editor với dữ liệu mẫu, không cần đăng nhập.</li>
+<li><code>/admin</code>: đăng nhập bằng tài khoản admin ở bước 1.</li>
+</ul>
+<p>Các lệnh khác:</p>
+<table>
+<thead>
+<tr>
+<th>Lệnh</th>
+<th>Việc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>npm run build</code></td>
+<td>Typecheck + build ra <code>dist/</code></td>
+</tr>
+<tr>
+<td><code>npm run lint</code></td>
+<td>oxlint</td>
+</tr>
+<tr>
+<td><code>npm test</code></td>
+<td>vitest (âm lịch, VietQR, link lịch, CSV, meta OG…)</td>
+</tr>
+<tr>
+<td><code>npm run preview</code></td>
+<td>Xem thử bản build</td>
+</tr>
+</tbody>
+</table>
+<h3 id="biến-môi-trường">Biến môi trường</h3>
+<p>Vite đọc được cả tên biến do <em>Supabase integration</em> của Vercel
+tạo, nên chỉ cần <strong>một</strong> trong mỗi nhóm:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Ý nghĩa</th>
+<th>Tên biến (ưu tiên từ trái sang)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL</td>
+<td><code>VITE_SUPABASE_URL</code>, <code>SUPABASE_URL</code>,
+<code>NEXT_PUBLIC_SUPABASE_URL</code></td>
+</tr>
+<tr>
+<td>Key public</td>
+<td><code>VITE_SUPABASE_ANON_KEY</code>,
+<code>NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY</code>,
+<code>SUPABASE_ANON_KEY</code>,
+<code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>vite.config.ts</code> chỉ nhúng đúng 2 giá trị này vào bundle.
+Các biến khác trong <code>.env</code> (service role, mật khẩu Postgres…)
+không bao giờ ra trình duyệt.</p>
+<h2 id="deploy-vercel">3. Deploy Vercel</h2>
+<ol type="1">
+<li>Import repo GitHub vào Vercel. Framework được nhận là
+<strong>Vite</strong> (đã cấu hình sẵn trong
+<code>vercel.json</code>).</li>
+<li>Environment Variables: thêm <code>SUPABASE_URL</code> và
+<code>NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY</code> cho Production và
+Preview. Nếu dùng <em>Supabase integration</em> của Vercel thì các biến
+này được tạo tự động.</li>
+<li>Deploy. Sau mỗi lần push lên <code>main</code>, Vercel tự build
+lại.</li>
+<li>Supabase → Authentication → URL Configuration: đặt <strong>Site
+URL</strong> là domain Vercel (vd
+<code>https://thiepcuoi.vercel.app</code>).</li>
+</ol>
+<p><code>vercel.json</code>: - Rewrite mọi đường dẫn về
+<code>index.html</code> (SPA). - Cache 1 năm cho <code>/assets/*</code>,
+vì tên file đã có hash.</p>
+<h3 id="ảnh-xem-trước-khi-chia-sẻ-link-zalo-messenger-facebook">Ảnh xem
+trước khi chia sẻ link (Zalo, Messenger, Facebook)</h3>
+<p>Trang thiệp là SPA nên bot của mạng xã hội không chạy JavaScript.
+<code>middleware.ts</code> (Vercel Routing Middleware) xử lý việc này:
+1. Với mỗi request <code>/{slug}</code>, đọc thiệp đã xuất bản từ
+Supabase. 2. Chèn <code>og:title</code>, <code>og:description</code>,
+<code>og:image</code> vào <code>index.html</code> trước khi trả về.</p>
+<p>Nội dung meta: - Có <code>?g=mã-khách</code>: tiêu đề thành “Thân mời
+{tên khách} | Thiệp cưới A &amp; B”. - Lấy từ mục <strong>Lời cảm ơn
+&amp; chia sẻ link</strong> trong editor. Để trống thì dùng tên cặp đôi
+và ảnh chính. - Nếu Zalo không hiện ảnh (ảnh upload được nén sang WebP):
+dán link một ảnh JPG/PNG ngang 1200×630 vào ô <em>Ảnh khi chia sẻ
+link</em>.</p>
+<p>Mạng xã hội cache bản xem trước. Sau khi đổi ảnh, dùng <a
+href="https://developers.facebook.com/tools/debug/">Facebook Sharing
+Debugger</a> để làm mới.</p>
+<h2 id="sử-dụng-trang-quản-trị">4. Sử dụng trang quản trị</h2>
+<ol type="1">
+<li><strong>Tạo thiệp</strong>: <code>/admin</code> → <em>Tạo
+thiệp</em>. Nhập tên (chỉ admin thấy) và đường dẫn, vd
+<code>minh-quan-thu-trang</code>. Thiệp mới dùng nội dung mẫu.</li>
+<li><strong>Tab Nội dung</strong>: sửa theo từng mục, preview điện thoại
+bên phải cập nhật ngay.
+<ul>
+<li><strong>Ảnh</strong>: bấm <em>Tải ảnh lên</em>. Ảnh được nén sang
+WebP, cạnh dài tối đa 1600px, rồi lưu vào Supabase Storage. Cũng có thể
+dán URL ảnh.</li>
+<li><strong>Album</strong>: <em>Tải nhiều ảnh lên</em> để chọn nhiều ảnh
+cùng lúc. Dùng nút mũi tên để đổi thứ tự.</li>
+<li><strong>Nhạc nền</strong>: <em>Tải nhạc lên</em> (MP3/M4A, tối đa
+15MB). Nhạc phát khi khách bấm <em>Mở thiệp</em>.</li>
+<li><strong>Quà mừng</strong>: chọn ngân hàng và nhập số tài khoản, QR
+VietQR được tạo tự động. Có thể dán ảnh QR riêng.</li>
+<li>Bấm <strong>Lưu</strong>. Rời trang khi chưa lưu sẽ có cảnh
+báo.</li>
+</ul></li>
+<li><strong>Xuất bản</strong>: bật công tắc <em>Xuất bản</em>. Thiệp
+nháp mở ra sẽ thấy trang “không tồn tại”.</li>
+<li><strong>Tab Khách mời</strong>: dán danh sách, mỗi dòng một tên (vd
+“Anh Minh &amp; người thương”). Mỗi khách có link riêng
+<code>/{slug}?g=mã</code>, mở ra thấy “Thân mời {tên}”. Có thể <em>Chép
+tất cả</em> (tên + link, dán vào Excel) hoặc tải CSV.
+<ul>
+<li>Gửi nhanh không cần tạo khách:
+<code>/{slug}?khach=Tên khách</code>.</li>
+</ul></li>
+<li><strong>Tab Lời chúc</strong>: ẩn lời chúc không phù hợp (vẫn giữ
+trong DB) hoặc xoá hẳn.</li>
+<li><strong>Tab Tham dự</strong>: tổng số khách sẽ đến, bảng chi tiết,
+<em>Xuất CSV</em> (mở bằng Excel không lỗi font).</li>
+</ol>
+<h2 id="bảo-mật-rls">5. Bảo mật (RLS)</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Bảng</th>
+<th>Khách (anon)</th>
+<th>Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>invitations</code></td>
+<td>Chỉ đọc thiệp đã xuất bản</td>
+<td>Toàn quyền</td>
+</tr>
+<tr>
+<td><code>wishes</code></td>
+<td>Gửi lời chúc vào thiệp đã xuất bản. Chỉ đọc lời chúc không bị
+ẩn</td>
+<td>Toàn quyền</td>
+</tr>
+<tr>
+<td><code>rsvps</code></td>
+<td>Chỉ gửi, không đọc được</td>
+<td>Toàn quyền</td>
+</tr>
+<tr>
+<td><code>guests</code></td>
+<td>Không đọc trực tiếp. RPC <code>get_guest(slug, code)</code> trả đúng
+tên của 1 mã</td>
+<td>Toàn quyền</td>
+</tr>
+<tr>
+<td>Storage <code>invitation-media</code></td>
+<td>Đọc public</td>
+<td>Upload/xoá</td>
+</tr>
+</tbody>
+</table>
+<p>Đã kiểm tra bằng anon key: - Đọc <code>rsvps</code> /
+<code>guests</code> / <code>admin_users</code> đều trả về rỗng. - Sửa
+thiệp, xoá lời chúc, upload file đều bị chặn.</p>
+<h2 id="cấu-trúc-thư-mục">6. Cấu trúc thư mục</h2>
+<pre><code>middleware.ts                  Vercel middleware chèn meta OG
+supabase/migrations/           SQL tạo bảng, RLS, bucket
+src/
+  App.tsx                      Router (trang admin tải lazy)
+  types/invitation.ts          Schema zod của nội dung thiệp (dùng chung thiệp + editor)
+  data/default-invitation.ts   Nội dung mẫu cho thiệp mới
+  lib/                         supabase, âm lịch, VietQR, link lịch, upload, CSV, meta OG
+  features/invitation/         Trang thiệp: sections/, overlays/ (nhạc, RSVP, quà, tim rơi), ui/
+  features/admin/              Đăng nhập, danh sách thiệp, editor/ (form + preview), tabs/
+  pages/                       Demo, trang thiệp theo slug, 404
+public/decor, public/placeholders   Hình trang trí và ảnh mẫu tự vẽ (SVG)</code></pre>
+<p>Muốn thêm trường nội dung mới: 1. Thêm vào schema
+<code>src/types/invitation.ts</code> và
+<code>default-invitation.ts</code>. 2. Hiển thị trong
+<code>features/invitation/sections</code>. 3. Thêm ô nhập trong
+<code>features/admin/editor/fields</code>.</p>
+<p>Thiệp cũ thiếu trường mới sẽ được
+<code>normalizeInvitationData</code> tự lấy giá trị mặc định, nên không
+cần migrate DB.</p>
+</body>
+</html>
