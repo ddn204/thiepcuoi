@@ -1,4 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
+import middlewareSource from '../../middleware.ts?raw'
+import ogMetaSource from './og-meta.ts?raw'
 import { buildOgMeta, injectOgMeta, renderInvitationHtml, type OgSource } from './og-meta'
 
 const source: OgSource = {
@@ -94,5 +96,17 @@ describe('renderInvitationHtml', () => {
       String(input).includes('/rest/v1/') ? respond([]) : respond(html),
     )
     expect(await renderInvitationHtml(new Request('https://x.vn/khong-co'), env(fetchMock))).toBeNull()
+  })
+})
+
+describe('import trong code middleware', () => {
+  // Vercel dịch từng file .ts sang .js và giữ nguyên đường dẫn import: đuôi .ts làm middleware lỗi 500 trên mọi trang
+  it.each([
+    ['middleware.ts', middlewareSource],
+    ['og-meta.ts', ogMetaSource],
+  ])('%s chỉ import tương đối với đuôi .js', (_file, source) => {
+    const relativeImports = [...source.matchAll(/from '(\.{1,2}\/[^']+)'/g)].map((match) => match[1])
+    expect(relativeImports.length).toBeGreaterThan(0)
+    for (const specifier of relativeImports) expect(specifier).toMatch(/\.js$/)
   })
 })

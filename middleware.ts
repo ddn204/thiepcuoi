@@ -1,5 +1,7 @@
-import { next } from '@vercel/functions'
-import { renderInvitationHtml } from './src/lib/og-meta.ts'
+/// <reference types="node" />
+import { next } from '@vercel/functions/middleware'
+// Đuôi .js là bắt buộc: Vercel dịch từng file sang .js, giữ nguyên đường dẫn import (đuôi .ts sẽ lỗi khi chạy)
+import { renderInvitationHtml } from './src/lib/og-meta.js'
 
 /**
  * Vercel Routing Middleware: trang thiệp là SPA nên bot của Zalo/Messenger/Facebook không thấy meta do React đặt.
@@ -7,6 +9,7 @@ import { renderInvitationHtml } from './src/lib/og-meta.ts'
  * Chỉ dùng URL + publishable/anon key (RLS chỉ cho đọc thiệp đã xuất bản).
  */
 export const config = {
+  runtime: 'nodejs',
   // Bỏ qua file tĩnh (có dấu chấm) và thư mục assets
   matcher: ['/((?!assets/|.*\\.).*)'],
 }

@@ -1,9 +1,10 @@
 /**
  * Meta Open Graph cho link thiệp, để khi gửi qua Zalo/Messenger/Facebook hiện đúng ảnh và tên cặp đôi.
- * Dùng trong Vercel Routing Middleware (`middleware.ts`) nên chỉ import đường dẫn tương đối có đuôi `.ts`, không alias `@/`.
+ * Dùng trong Vercel Routing Middleware (`middleware.ts`): Vercel dịch từng file .ts sang .js mà không gộp bundle,
+ * nên import tương đối phải ghi đuôi `.js` (trỏ tới file .js sau khi dịch) và không dùng alias `@/`.
  */
 
-import { RESERVED_SLUGS, SLUG_PATTERN } from './slug.ts'
+import { RESERVED_SLUGS, SLUG_PATTERN } from './slug.js'
 
 export interface OgMeta {
   title: string
