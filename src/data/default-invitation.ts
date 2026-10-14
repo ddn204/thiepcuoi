@@ -56,7 +56,7 @@ export const defaultInvitation: InvitationData = {
   album: {
     enabled: true,
     title: "Album ảnh",
-    photos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => ({
+    photos: [1, 2, 3, 4, 5, 6].map((n) => ({
       url: `/placeholders/anh${n}.jpg`,
       alt: `Ảnh cưới ${n}`,
     })),
