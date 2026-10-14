@@ -2,7 +2,7 @@ import type { InvitationData } from '@/types/invitation'
 import { Reveal } from '../ui/Reveal'
 
 export function LoveStory({ data }: { data: InvitationData }) {
-  const imgSrc = data.assets.loveStoryBg || '/decor/our-love-story.svg'
+  const imgSrc = data.assets.loveStoryBg || '/decor/our-love-story.png'
 
   return (
     <section className="relative mx-auto w-full max-w-[480px] overflow-hidden">
