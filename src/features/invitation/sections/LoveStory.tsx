@@ -6,7 +6,6 @@ export function LoveStory({ data }: { data: InvitationData }) {
 
   return (
     <section className="relative mx-auto w-full max-w-[480px] overflow-hidden">
-      <Reveal className="w-full">
         <img
           src={imgSrc}
           alt="Our love story"
@@ -18,7 +17,6 @@ export function LoveStory({ data }: { data: InvitationData }) {
           }}
           draggable={false}
         />
-      </Reveal>
     </section>
   )
 }
