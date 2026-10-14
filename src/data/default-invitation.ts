@@ -16,7 +16,7 @@ export const defaultInvitation: InvitationData = {
     flowerDecor: "",
     cornerFlower: "",
     coverEnvelope: "/decor/thip moi.svg",
-    loveStoryBg: "/decor/our-love-story.svg",
+    loveStoryBg: "/decor/our-love-story.png",
     ceremonyImage: "/decor/le-vu-quy.svg",
     partyBg: "/decor/thongtintieccuoi.svg",
   },
