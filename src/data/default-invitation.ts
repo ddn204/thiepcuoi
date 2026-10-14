@@ -113,7 +113,7 @@ export const defaultInvitation: InvitationData = {
         bankBin: "",
         bankName: "MB Bank",
         accountNumber: "1903456789",
-        accountName: "TRANG DUNG",
+        accountName: "CAN THI DUNG",
         qrImage: "/decor/qr-co-dau.jpg",
       },
     ],
