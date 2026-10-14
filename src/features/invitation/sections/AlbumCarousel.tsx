@@ -68,7 +68,7 @@ export function AlbumCarousel({ data }: { data: InvitationData }) {
   }
 
   return (
-    <section className="relative flex flex-col items-center overflow-x-clip px-6 pt-10 pb-10">
+    <section style={{ backgroundColor: data.theme.cream }} className="relative flex flex-col items-center overflow-x-clip px-6 pt-10 pb-10">
       <Reveal>
         <SectionTitle>{album.title}</SectionTitle>
       </Reveal>

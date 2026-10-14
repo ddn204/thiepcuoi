@@ -10,11 +10,11 @@ export function VenueMap({ data }: { data: InvitationData }) {
   if (!query) return null
 
   return (
-    <section className="relative flex flex-col items-center overflow-x-clip px-6 pt-10 pb-8 text-center">
+    <section style={{ backgroundColor: data.theme.cream }} className="relative flex flex-col items-center overflow-x-clip px-6 pt-10 pb-8 text-center">
       <Reveal>
         <h3 className="font-serif text-2xl font-bold tracking-wide uppercase">{party.venueTitle}</h3>
-        <p className="mx-auto mt-3 max-w-[340px] font-serif text-lg leading-relaxed opacity-90">
-          {party.venueName && <span className="font-semibold">{party.venueName}</span>}
+        <p className="mx-auto  text-center font-serif text-xl leading-relaxed opacity-90">
+          {/* {party.venueName && <span className="font-semibold">{party.venueName}</span>} */}
           {party.venueName && party.address && <br />}
           {party.address}
         </p>

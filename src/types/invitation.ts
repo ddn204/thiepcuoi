@@ -1,12 +1,14 @@
-import { z } from 'zod'
+import { z } from "zod";
 
-const hex = z.string().regex(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i, 'Mã màu dạng #RRGGBB')
-const text = (max = 200) => z.string().trim().max(max, `Tối đa ${max} ký tự`)
-const required = (max = 200) => text(max).min(1, 'Không được để trống')
+const hex = z
+  .string()
+  .regex(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i, "Mã màu dạng #RRGGBB");
+const text = (max = 200) => z.string().trim().max(max, `Tối đa ${max} ký tự`);
+const required = (max = 200) => text(max).min(1, "Không được để trống");
 /** Đường dẫn ảnh/nhạc: URL đầy đủ hoặc path tương đối trong /public. Có thể để trống. */
-const mediaUrl = z.string().trim().max(1000)
-const dateStr = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Ngày dạng YYYY-MM-DD')
-const timeStr = z.string().regex(/^\d{2}:\d{2}$/, 'Giờ dạng HH:mm')
+const mediaUrl = z.string().trim().max(1000);
+const dateStr = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Ngày dạng YYYY-MM-DD");
+const timeStr = z.string().regex(/^\d{2}:\d{2}$/, "Giờ dạng HH:mm");
 
 export const personSchema = z.object({
   fullName: required(80),
@@ -16,12 +18,12 @@ export const personSchema = z.object({
   father: text(80),
   mother: text(80),
   address: text(160),
-})
+});
 
 export const photoSchema = z.object({
-  url: mediaUrl.min(1, 'Chưa có ảnh'),
+  url: mediaUrl.min(1, "Chưa có ảnh"),
   alt: text(120),
-})
+});
 
 export const giftAccountSchema = z.object({
   /** Tiêu đề hiển thị, vd "Chú rể", "Cô dâu" */
@@ -33,12 +35,12 @@ export const giftAccountSchema = z.object({
   accountName: text(80),
   /** Ảnh QR tự upload; nếu có sẽ dùng thay QR VietQR tự sinh */
   qrImage: mediaUrl,
-})
+});
 
 export const scheduleItemSchema = z.object({
   time: timeStr,
   label: required(80),
-})
+});
 
 export const invitationDataSchema = z.object({
   theme: z.object({
@@ -49,12 +51,16 @@ export const invitationDataSchema = z.object({
     gold: hex,
   }),
   assets: z.object({
-    /** Hoạ tiết nền mờ phía sau các section */
+    /** Màu (#RRGGBB) hoặc đường dẫn ảnh nền */
     backgroundArt: mediaUrl,
     /** Nhánh hoa trang trí dọc hai bên */
     flowerDecor: mediaUrl,
     /** Hoa nhỏ ở góc card bìa */
     cornerFlower: mediaUrl,
+    coverEnvelope: mediaUrl,
+    loveStoryBg: mediaUrl,
+    ceremonyImage: mediaUrl,
+    partyBg: mediaUrl,
   }),
   cover: z.object({
     greeting: text(60),
@@ -85,8 +91,8 @@ export const invitationDataSchema = z.object({
     heading: text(80),
     date: dateStr,
     time: timeStr,
-    welcomeTime: z.union([timeStr, z.literal('')]),
-    startTime: z.union([timeStr, z.literal('')]),
+    welcomeTime: z.union([timeStr, z.literal("")]),
+    startTime: z.union([timeStr, z.literal("")]),
     lunarOverride: text(80),
     venueTitle: text(60),
     venueName: text(120),
@@ -131,21 +137,21 @@ export const invitationDataSchema = z.object({
     description: text(300),
     ogImage: mediaUrl,
   }),
-})
+});
 
-export type Person = z.infer<typeof personSchema>
-export type Photo = z.infer<typeof photoSchema>
-export type GiftAccount = z.infer<typeof giftAccountSchema>
-export type ScheduleItem = z.infer<typeof scheduleItemSchema>
-export type InvitationData = z.infer<typeof invitationDataSchema>
+export type Person = z.infer<typeof personSchema>;
+export type Photo = z.infer<typeof photoSchema>;
+export type GiftAccount = z.infer<typeof giftAccountSchema>;
+export type ScheduleItem = z.infer<typeof scheduleItemSchema>;
+export type InvitationData = z.infer<typeof invitationDataSchema>;
 
 /** Bản ghi thiệp trong DB */
 export interface Invitation {
-  id: string
-  slug: string
-  title: string
-  data: InvitationData
-  published: boolean
-  created_at: string
-  updated_at: string
+  id: string;
+  slug: string;
+  title: string;
+  data: InvitationData;
+  published: boolean;
+  created_at: string;
+  updated_at: string;
 }

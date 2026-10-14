@@ -9,6 +9,7 @@ export function DressCode({ data }: { data: InvitationData }) {
 
   return (
     <section className="relative flex flex-col items-center gap-4 px-6 py-10">
+      
       <Reveal className="text-center">
         <SectionTitle>{dressCode.title}</SectionTitle>
         {dressCode.subtitle && <p className="mt-2 font-serif text-lg opacity-85">{dressCode.subtitle}</p>}
