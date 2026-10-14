@@ -14,7 +14,6 @@ export function VenueMap({ data }: { data: InvitationData }) {
       <Reveal>
         <h3 className="font-serif text-2xl font-bold tracking-wide uppercase">{party.venueTitle}</h3>
         <p className="mx-auto  text-center font-serif text-xl leading-relaxed opacity-90">
-          {/* {party.venueName && <span className="font-semibold">{party.venueName}</span>} */}
           {party.venueName && party.address && <br />}
           {party.address}
         </p>
