@@ -19,7 +19,6 @@ export const defaultInvitation: InvitationData = {
     loveStoryBg: "/decor/our-love-story.svg",
     ceremonyImage: "/decor/le-vu-quy.svg",
     partyBg: "/decor/thongtintieccuoi.svg",
-
   },
   cover: {
     greeting: "Thân mời",
@@ -57,7 +56,7 @@ export const defaultInvitation: InvitationData = {
   album: {
     enabled: true,
     title: "Album ảnh",
-    photos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((n) => ({
+    photos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => ({
       url: `/placeholders/anh${n}.jpg`,
       alt: `Ảnh cưới ${n}`,
     })),
@@ -106,7 +105,7 @@ export const defaultInvitation: InvitationData = {
         bankBin: "",
         bankName: "TP Bank",
         accountNumber: "0379591256",
-        accountName: "Chu Quang Huy",
+        accountName: "CHU QUANG HUY",
         qrImage: "/decor/qr-chu-re.jpg",
       },
       {
@@ -120,8 +119,8 @@ export const defaultInvitation: InvitationData = {
     ],
   },
   music: {
-    enabled: false,
-    url: "",
+    enabled: true,
+    url: "/music/Happy Ending.mp3", // path trong public
   },
   autoScroll: true,
   footer: {

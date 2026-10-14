@@ -40,7 +40,7 @@ export function PartyInfo({ data }: PartyInfoProps) {
 
   return (
     <section
-      className="relative mx-auto w-full max-w-[480px] overflow-hidden py-2"
+      className="p-5 relative mx-auto w-full max-w-[480px] overflow-hidden py-2"
       style={{ backgroundColor: "#5c0a16" }}
     >
       <Reveal className="relative w-full">
