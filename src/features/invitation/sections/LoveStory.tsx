@@ -16,7 +16,7 @@ export function LoveStory({ data }: { data: InvitationData }) {
             backfaceVisibility: 'hidden',
           }}
           draggable={false}
-        />
+        /> 
     </section>
   )
 }
