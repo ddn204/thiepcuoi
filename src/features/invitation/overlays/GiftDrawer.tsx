@@ -1,39 +1,61 @@
-import { Copy, Download, X } from 'lucide-react'
-import { toast } from 'sonner'
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerTitle } from '@/components/ui/drawer'
-import { giftQrUrl } from '@/lib/vietqr'
-import type { GiftAccount, InvitationData } from '@/types/invitation'
+import { Copy, Download, X } from "lucide-react";
+import { toast } from "sonner";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerTitle,
+} from "@/components/ui/drawer";
+import { giftQrUrl } from "@/lib/vietqr";
+import type { GiftAccount, InvitationData } from "@/types/invitation";
 
 interface GiftDrawerProps {
-  data: InvitationData
-  open: boolean
-  onOpenChange: (open: boolean) => void
+  data: InvitationData;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 async function downloadQr(url: string, fileName: string) {
+  const isIOS =
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  // iOS: không tin tưởng a.download → mở ảnh để nhấn giữ
+  if (isIOS) {
+    window.open(url, "_blank", "noopener,noreferrer");
+    return;
+  }
+
   try {
-    const res = await fetch(url)
-    if (!res.ok) throw new Error(String(res.status))
-    const objectUrl = URL.createObjectURL(await res.blob())
-    Object.assign(document.createElement('a'), { href: objectUrl, download: fileName }).click()
-    URL.revokeObjectURL(objectUrl)
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(String(res.status));
+    const blob = await res.blob();
+    const objectUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = objectUrl;
+    a.download = fileName;
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(objectUrl);
   } catch {
-    // Không tải được (CORS…) → mở ảnh ở tab mới để người dùng tự lưu
-    window.open(url, '_blank', 'noopener')
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 }
 
 function AccountCard({ account }: { account: GiftAccount }) {
-  const qr = giftQrUrl(account)
+  const qr = giftQrUrl(account);
 
   const copyNumber = async () => {
     try {
-      await navigator.clipboard.writeText(account.accountNumber)
-      toast.success('Đã sao chép số tài khoản')
+      await navigator.clipboard.writeText(account.accountNumber);
+      toast.success("Đã sao chép số tài khoản");
     } catch {
-      toast.error('Không sao chép được, bạn chép tay giúp nhé')
+      toast.error("Không sao chép được, bạn chép tay giúp nhé");
     }
-  }
+  };
 
   return (
     <div className="flex flex-col items-center text-center">
@@ -43,10 +65,17 @@ function AccountCard({ account }: { account: GiftAccount }) {
       </p>
       {qr ? (
         <div className="mt-4 rounded-2xl bg-white p-3 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.35)] ring-1 ring-black/5">
-          <img src={qr} alt={`Mã QR chuyển khoản ${account.label}`} className="size-44 object-contain" loading="lazy" />
+          <img
+            src={qr}
+            alt={`Mã QR chuyển khoản ${account.label}`}
+            className="size-44 object-contain"
+            loading="lazy"
+          />
         </div>
       ) : (
-        <p className="mt-4 text-sm text-muted-foreground">Chưa có thông tin QR</p>
+        <p className="mt-4 text-sm text-muted-foreground">
+          Chưa có thông tin QR
+        </p>
       )}
       <p className="mt-3 text-base text-wine/80">{account.bankName}</p>
       {account.accountNumber && (
@@ -60,11 +89,15 @@ function AccountCard({ account }: { account: GiftAccount }) {
           <Copy className="size-3.5" />
         </button>
       )}
-      <p className="mt-1 font-semibold tracking-wide text-wine uppercase">{account.accountName}</p>
+      <p className="mt-1 font-semibold tracking-wide text-wine uppercase">
+        {account.accountName}
+      </p>
       {qr && (
         <button
           type="button"
-          onClick={() => downloadQr(qr, `qr-${account.accountNumber || account.label}.png`)}
+          onClick={() =>
+            downloadQr(qr, `qr-${account.accountNumber || account.label}.png`)
+          }
           className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-wine/10 px-4 py-2 text-sm font-semibold text-wine transition hover:bg-wine/20"
         >
           <Download className="size-4" />
@@ -72,7 +105,7 @@ function AccountCard({ account }: { account: GiftAccount }) {
         </button>
       )}
     </div>
-  )
+  );
 }
 
 /** Bottom sheet hiển thị QR chuyển khoản mừng cưới. */
@@ -84,7 +117,9 @@ export function GiftDrawer({ data, open, onOpenChange }: GiftDrawerProps) {
           <DrawerTitle className="font-serif text-2xl font-bold tracking-wide text-cream uppercase">
             {data.gift.title}
           </DrawerTitle>
-          <DrawerDescription className="sr-only">Mã QR chuyển khoản mừng cưới</DrawerDescription>
+          <DrawerDescription className="sr-only">
+            Mã QR chuyển khoản mừng cưới
+          </DrawerDescription>
           <DrawerClose
             className="absolute top-1/2 right-5 -translate-y-1/2 rounded-full p-1 text-cream/90 transition hover:bg-white/10"
             aria-label="Đóng"
@@ -94,10 +129,13 @@ export function GiftDrawer({ data, open, onOpenChange }: GiftDrawerProps) {
         </div>
         <div className="space-y-10 overflow-y-auto px-6 pt-6 pb-10">
           {data.gift.accounts.map((account, index) => (
-            <AccountCard key={`${account.accountNumber}-${index}`} account={account} />
+            <AccountCard
+              key={`${account.accountNumber}-${index}`}
+              account={account}
+            />
           ))}
         </div>
       </DrawerContent>
     </Drawer>
-  )
+  );
 }
