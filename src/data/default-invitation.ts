@@ -12,7 +12,7 @@ export const defaultInvitation: InvitationData = {
   },
   assets: {
     // Màu đỏ solid toàn trang
-    backgroundArt: "#821324",
+    backgroundArt: "#511419",
     flowerDecor: "",
     cornerFlower: "",
     coverEnvelope: "/decor/thip moi.svg",
