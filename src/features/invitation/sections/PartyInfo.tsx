@@ -57,33 +57,53 @@ export function PartyInfo({ data }: PartyInfoProps) {
           style={{ top: "50%" }}
         >
           {cd.finished ? (
-            <p className="font-display text-xl text-[#5c0a16]">Đã đến ngày!</p>
+            <p
+              className="text-xl text-[#5c0a16]"
+              style={{ fontFamily: '"Times New Roman", Times, serif' }}
+            >
+              Đã đến ngày!
+            </p>
           ) : (
-            <div className="flex items-start gap-1.5 font-display text-2xl tabular-nums text-[#5c0a16] sm:gap-2 sm:text-3xl">
+            <div
+              className="flex items-start gap-1.5 text-2xl tabular-nums text-[#5c0a16] sm:gap-2 sm:text-3xl"
+              style={{ fontFamily: '"Times New Roman", Times, serif' }}
+            >
               <div className="flex min-w-[2.6rem] flex-col items-center">
                 <span>{pad(cd.days)}</span>
-                <span className="mt-0.5 font-serif text-[9px] tracking-wider uppercase opacity-70">
+                <span
+                  className="mt-0.5 text-[9px] tracking-wider uppercase opacity-70"
+                  style={{ fontFamily: '"Times New Roman", Times, serif' }}
+                >
                   Ngày
                 </span>
               </div>
               <span className="opacity-40">:</span>
               <div className="flex min-w-[2.6rem] flex-col items-center">
                 <span>{pad(cd.hours)}</span>
-                <span className="mt-0.5 font-serif text-[9px] tracking-wider uppercase opacity-70">
+                <span
+                  className="mt-0.5 text-[9px] tracking-wider uppercase opacity-70"
+                  style={{ fontFamily: '"Times New Roman", Times, serif' }}
+                >
                   Giờ
                 </span>
               </div>
               <span className="opacity-40">:</span>
               <div className="flex min-w-[2.6rem] flex-col items-center">
                 <span>{pad(cd.minutes)}</span>
-                <span className="mt-0.5 font-serif text-[9px] tracking-wider uppercase opacity-70">
+                <span
+                  className="mt-0.5 text-[9px] tracking-wider uppercase opacity-70"
+                  style={{ fontFamily: '"Times New Roman", Times, serif' }}
+                >
                   Phút
                 </span>
               </div>
               <span className="opacity-40">:</span>
               <div className="flex min-w-[2.6rem] flex-col items-center">
                 <span>{pad(cd.seconds)}</span>
-                <span className="mt-0.5 font-serif text-[9px] tracking-wider uppercase opacity-70">
+                <span
+                  className="mt-0.5 text-[9px] tracking-wider uppercase opacity-70"
+                  style={{ fontFamily: '"Times New Roman", Times, serif' }}
+                >
                   Giây
                 </span>
               </div>

@@ -13,7 +13,7 @@ export function VenueMap({ data }: { data: InvitationData }) {
     <section style={{ backgroundColor: data.theme.cream }} className="relative flex flex-col items-center overflow-x-clip px-6 pt-10 pb-8 text-center">
       <Reveal>
         <h3 className="font-serif text-2xl font-bold tracking-wide uppercase">{party.venueTitle}</h3>
-        <p className="mx-auto  text-center font-serif text-xl leading-relaxed opacity-90">
+        <p className=" text-center font-serif text-xl leading-relaxed ">
           {party.venueName && party.address && <br />}
           {party.address}
         </p>
