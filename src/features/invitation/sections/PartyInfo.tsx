@@ -54,7 +54,7 @@ export function PartyInfo({ data }: PartyInfoProps) {
         {/* Đếm ngược đè lên khoảng trống giữa "CÙNG ĐẾM NGƯỢC" và lịch */}
         <div
           className="pointer-events-none absolute left-0 right-0 flex justify-center"
-          style={{ top: "52%" }}
+          style={{ top: "50%" }}
         >
           {cd.finished ? (
             <p className="font-display text-xl text-[#5c0a16]">Đã đến ngày!</p>
