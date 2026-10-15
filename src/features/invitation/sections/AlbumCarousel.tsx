@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,15 +11,13 @@ import type { InvitationData } from "@/types/invitation";
 import { Reveal } from "../ui/Reveal";
 import { SectionTitle } from "../ui/SectionTitle";
 
-/** Độ mờ theo khoảng cách tới ảnh giữa: 0, 1, 2, 3 nấc (xa hơn thì ẩn) */
 const OPACITY_BY_DISTANCE = [1, 0.75, 0.5, 0.3, 0];
-
-/** Loop của Swiper cần đủ slide để mỗi bên ảnh giữa có 3 ảnh */
 const MIN_LOOP_SLIDES = 8;
+/** Dưới ngưỡng này = chạm (tap), trên = vuốt */
+const TAP_MOVE_THRESHOLD = 12;
 
 type SlideEl = HTMLElement & { progress?: number };
 
-/** Coverflow không làm mờ ảnh hai bên → tự đặt opacity theo progress. */
 function fadeSideSlides(swiper: SwiperType) {
   for (const slide of swiper.slides as SlideEl[]) {
     const distance = Math.min(
@@ -36,7 +34,6 @@ function fadeSideSlides(swiper: SwiperType) {
   }
 }
 
-/** Album ảnh: Swiper coverflow, vuốt chuyển, bấm ảnh giữa để phóng to. */
 export function AlbumCarousel({ data }: { data: InvitationData }) {
   const { album } = data;
   const photos = album.photos;
@@ -46,11 +43,12 @@ export function AlbumCarousel({ data }: { data: InvitationData }) {
   const slides = Array.from({ length: copies }, () => photos).flat();
 
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
-  const [activeSlide, setActiveSlide] = useState(0); // realIndex (0 .. total-1)
+  const [activeSlide, setActiveSlide] = useState(0);
   const active = total ? activeSlide % total : 0;
   const [lightboxIndex, setLightboxIndex] = useState(-1);
 
-  // Tạm dừng autoplay khi đang xem lightbox
+  const pointerStart = useRef<{ x: number; y: number } | null>(null);
+
   useEffect(() => {
     if (!swiper?.autoplay || swiper.destroyed) return;
     if (lightboxIndex >= 0) swiper.autoplay.stop();
@@ -59,32 +57,46 @@ export function AlbumCarousel({ data }: { data: InvitationData }) {
 
   if (!album.enabled || total === 0) return null;
 
-  /**
-   * Quan trọng (loop mode):
-   * - slideIndex  = index trong danh sách đã nhân bản
-   * - activeIndex = slide đang ở giữa (trong loop)
-   * - realIndex   = index ảnh thật (0 .. total-1)
-   * Không so sánh slideIndex === realIndex.
-   */
+  const handlePointerDown = (e: React.PointerEvent) => {
+    pointerStart.current = { x: e.clientX, y: e.clientY };
+    // Dừng autoplay ngay khi chạm — tránh đổi slide lúc đang bấm
+    swiper?.autoplay?.stop();
+  };
+
   const handleSlideClick = (
     slideIndex: number,
-    e?: React.MouseEvent<HTMLButtonElement>,
+    e: React.MouseEvent<HTMLButtonElement>,
   ) => {
-    e?.preventDefault();
-    e?.stopPropagation();
-
+    e.preventDefault();
+    e.stopPropagation();
     if (!swiper || swiper.destroyed) return;
 
-    if (slideIndex === swiper.activeIndex) {
-      setLightboxIndex(swiper.realIndex);
+    // Có kéo tay → bỏ qua, để Swiper xử lý vuốt
+    if (pointerStart.current) {
+      const dx = Math.abs(e.clientX - pointerStart.current.x);
+      const dy = Math.abs(e.clientY - pointerStart.current.y);
+      pointerStart.current = null;
+      if (dx > TAP_MOVE_THRESHOLD || dy > TAP_MOVE_THRESHOLD) return;
+    }
+
+    const photoIndex = slideIndex % total;
+
+    // Ảnh đang ở giữa (hoặc gần giữa) → mở lightbox
+    // Dùng activeIndex ± 1 cho dễ bấm trên mobile
+    const isCenter =
+      slideIndex === swiper.activeIndex ||
+      Math.abs(slideIndex - swiper.activeIndex) <= 0;
+
+    if (isCenter || photoIndex === swiper.realIndex) {
+      setLightboxIndex(photoIndex);
     } else {
       swiper.slideToLoop(slideIndex);
     }
   };
 
-  /** Bấm chấm: tới bản sao gần nhất của ảnh đó */
   const goToPhoto = (photoIndex: number) => {
     if (!swiper || swiper.destroyed) return;
+    swiper.autoplay?.stop();
 
     const candidates = Array.from(
       { length: copies },
@@ -117,12 +129,16 @@ export function AlbumCarousel({ data }: { data: InvitationData }) {
           slidesPerView="auto"
           loop={loop}
           loopAdditionalSlides={2}
-          speed={1100}
+          speed={800}
           grabCursor
           watchSlidesProgress
+          // Mobile: cần kéo > 15px mới tính là vuốt — tránh nuốt mất tap
+          threshold={15}
+          preventClicks={false}
+          preventClicksPropagation={false}
           autoplay={{
-            delay: 2800,
-            disableOnInteraction: false,
+            delay: 3000,
+            disableOnInteraction: true,
             pauseOnMouseEnter: true,
           }}
           coverflowEffect={{
@@ -136,6 +152,7 @@ export function AlbumCarousel({ data }: { data: InvitationData }) {
           onSwiper={setSwiper}
           onRealIndexChange={(instance) => setActiveSlide(instance.realIndex)}
           onProgress={fadeSideSlides}
+          onTouchStart={(s) => s.autoplay?.stop()}
         >
           {slides.map((photo, slideIndex) => (
             <SwiperSlide
@@ -144,12 +161,9 @@ export function AlbumCarousel({ data }: { data: InvitationData }) {
             >
               <button
                 type="button"
+                onPointerDown={handlePointerDown}
                 onClick={(e) => handleSlideClick(slideIndex, e)}
-                aria-label={
-                  slideIndex === swiper?.activeIndex
-                    ? `Xem ảnh ${(slideIndex % total) + 1}`
-                    : `Chuyển tới ảnh ${(slideIndex % total) + 1}`
-                }
+                aria-label={`Xem ảnh ${(slideIndex % total) + 1}`}
                 className="album-card block size-full overflow-hidden rounded-2xl bg-cream shadow-xl"
               >
                 <img
