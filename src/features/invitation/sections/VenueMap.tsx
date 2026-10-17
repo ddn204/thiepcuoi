@@ -17,7 +17,7 @@ export function VenueMap({ data }: { data: InvitationData }) {
           {party.venueName && party.address && <br />}
           {party.address}
           <span 
-          className="text-sm text-muted-foreground rounded-lg flex text-center "
+          className="text-sm text-muted-foreground rounded-lg flex text-center justify-center items-center"
           style={{ color: "#5c0a16" }}>
             <br /> (Đi khoảng 7-800m từ Chùa Khô qua Nhà Văn hoá Vị Nhuế rẽ vào ngõ bên tay trái là đến nhaa)
           </span>
